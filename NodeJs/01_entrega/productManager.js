@@ -4,6 +4,26 @@ class ProductManager {
         this.autoIncrementId = 1;
     }
 
+    //Todos los pructos.
+    getProducts() {
+        return this.products;
+    }
+    //Producto por ID.
+    getProductById(id = 0) {
+        const product = this.products.find((p) => p.id === id);
+        if (product !== undefined) {
+            return product;
+        } else {
+            if (product === null) {
+                return "El producto es nulo.";
+            } else {
+                return "Producto no encontrado.";
+            }
+        }
+    }
+    //-----------------------------------------------------------------------------------------------------------------------------------------/
+
+    //Agregar Productos.
     addProduct(product) {
         if (!product.title || !product.description || !product.price || !product.thumbnail || !product.code || !product.stock) {
         console.log("Todos los campos son obligatorios.");
@@ -18,18 +38,35 @@ class ProductManager {
         this.products.push(product);
     }
 
-    getProducts() {
-        return this.products;
-    }
+    //-----------------------------------------------------------------------------------------------------------------------------------------/
 
-    getProductById(id) {
-        const product = this.products.find((p) => p.id === id);
-        if (product) {
-        return product;
+    deleteProduct(id) {
+        const productIndex = this.products.findIndex((p) => p.id === id);
+    
+        if (productIndex !== -1) { // Verifica si se encontró el producto
+            this.products.splice(productIndex, 1); // Elimina el producto
+            // Puedes guardar los cambios si es necesario
+            return true; // Indica que se eliminó con éxito
         } else {
-        console.log("Producto no encontrado.");
+            return false; // Indica que el producto no se encontró
         }
     }
+    
+    //-----------------------------------------------------------------------------------------------------------------------------------------/
+
+    updateProduct(id, newArray) {
+        const productIndex = this.products.findIndex((p) => p.id === id);
+        
+        if (productIndex !== -1) { // Verifica si se encontró el producto
+            this.products[productIndex] = { ...this.products[productIndex], ...newArray };
+            // Guarda los cambios si es necesario
+            return this.products[productIndex];
+        } else {
+            return null; // Indica que el producto no se encontró
+        }
+    }
+    
+    
     }
 
     // Instancio objeto.
@@ -58,12 +95,38 @@ class ProductManager {
         description: "Descripción del Producto 3",
         price: 15.23,
         thumbnail: "imagen3.jpg",
-        code: "P2",
-        stock: 50,
+        code: "P3",
+        stock: 505,
         });
     
+
+    // GETPRODUCTS
     const allProducts = manager.getProducts();
+    console.log(`\n-----------------------------------------------------------------------------------------------\n`);
     console.log("Todos los productos:", allProducts);
-    const productById = manager.getProductById(1);
-    console.log(`Producto con ID: ${productById.id}, ${productById}`);
-    const productByIdNotFound = manager.getProductById(3); //Constante para testear un id que no existe.
+
+    //  GETBYID
+    /*const productById = manager.getProductById(2);
+    console.log(`Producto con ID: ${productById.id}`);*/
+    
+    // GETINEXISTESNTE
+    /*const productByIdNotFound = manager.getProductById(3); //Constante para testear un id que no existe.
+    console.log(productByIdNotFound);*/
+
+
+    //Eliminar producto ---->
+    const deleteProduct = manager.deleteProduct(3);
+    setTimeout(() => { 
+        console.log(`\n-----------------------------------------------------------------------------------------------\n
+                    Lista Actualizada después de eliminar -> :\n ${JSON.stringify(allProducts, null, 2)}`);
+    } , 1000);
+
+
+    
+    //Modificar producto ---->
+    const newData = {title: "Actualizando Titulo", price: 9999, stock: 2};
+    setTimeout(() => { 
+        const updateProduct = manager.updateProduct(2, newData);
+        console.log(`\n------------------------------------------------------------------------------------------------\n
+                    Lista Actualizada después de Modificar -> :\n ${JSON.stringify(allProducts, null, 2)}`);
+    } , 2000);
