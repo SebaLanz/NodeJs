@@ -2,9 +2,18 @@
 const productos = require('./productos.js');
 
     //GetALL
-    const GetProductosAll = (response) => {
-        response.json(productos);
-    };
+    const GetProductosAll = (request, res) => {
+        const limit = request.query.limit || productos.length;
+        // Valido que "limit" sea un número  y positivo
+        const limitValue = parseInt(limit, 10);
+        if (isNaN(limitValue) || limitValue <= 0) {
+          return res.status(400).json({ message: 'El parámetro "limit" debe ser un número positivo' });
+        }
+        // Obtengo los productos limitados por slice
+        const productosLimitados = productos.slice(0, limitValue);
+      
+        res.json(productosLimitados);
+      };
 
     /*---------------------------------------------------------------------------------------------
     En este método, como no tenemos una bdd estructurada, no hago un getbyid autoincremental.

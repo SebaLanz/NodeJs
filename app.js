@@ -3,7 +3,7 @@ console.log(1);
 const express = require('express');
 const app = express();
 const port = 3000;
-const productosControlador = require('./productos/productosControlador'); // Asegúrate de que la ruta sea correcta
+const productosControlador = require('./clases/productos/productosManager'); // Asegúrate de que la ruta sea correcta
 // Ruta Raiz
 app.get('/', (req, res) => {
   res.send('¡Hola, mundo desde Express!');
