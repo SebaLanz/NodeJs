@@ -1,0 +1,19 @@
+Elegir archivo a ejecutar, cambiar ruta de ejecución.
+cd ..\
+cd .\'nombre_archivo
+
+-------
+cls -> Limpiar consola.
+
+-------
+node 'nombre_archivo.js' ejecuto el archivo js
+
+-------
+npm init -y
+
+-------
+
+npm install express
+
+-------
+control + c  -> Detengo el servidor y puedo ejecutar los comandos de la consola
