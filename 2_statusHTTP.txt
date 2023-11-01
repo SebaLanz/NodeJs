@@ -1,17 +1,34 @@
-200 OK: Indica que la solicitud se completó con éxito y que la respuesta contiene la información solicitada. Es el código de estado típico para respuestas exitosas.
+200 OK: Indica que la solicitud se completó con éxito y que la respuesta contiene la información solicitada.
+Es el código de estado típico para respuestas exitosas.
 
-201 Created: Se utiliza para indicar que la solicitud ha tenido éxito y ha resultado en la creación de un nuevo recurso, como la creación de un nuevo objeto en una base de datos.
+201 Created: Se utiliza para indicar que la solicitud ha tenido éxito y ha resultado en la creación de un nuevo recurso,
+como la creación de un nuevo objeto en una base de datos.
 
-204 No Content: Indica que la solicitud se ha procesado con éxito, pero la respuesta no contiene datos, generalmente utilizada en solicitudes que realizan cambios en el servidor sin devolver información adicional.
+204 No Content: Indica que la solicitud se ha procesado con éxito, pero la respuesta no contiene datos, generalmente
+utilizada en solicitudes que realizan cambios en el servidor sin devolver información adicional.
 
-400 Bad Request: Indica que la solicitud realizada por el cliente es incorrecta, incompleta o mal formada. Es comúnmente utilizado para errores en la sintaxis de la solicitud.
+400 Bad Request: Indica que la solicitud realizada por el cliente es incorrecta, incompleta o mal formada.
+Es comúnmente utilizado para errores en la sintaxis de la solicitud.
 
-401 Unauthorized: Significa que el cliente no ha proporcionado credenciales válidas para acceder al recurso solicitado, generalmente se utiliza en autenticación.
+401 Unauthorized: Significa que el cliente no ha proporcionado credenciales válidas para acceder al recurso solicitado,
+generalmente se utiliza en autenticación.
 
-403 Forbidden: Indica que el servidor entiende la solicitud, pero el servidor se niega a cumplirla. Esto podría ser debido a la falta de permisos del cliente para acceder al recurso.
+403 Forbidden: Indica que el servidor entiende la solicitud, pero el servidor se niega a cumplirla.
+Esto podría ser debido a la falta de permisos del cliente para acceder al recurso.
 
-404 Not Found: Indica que el recurso solicitado no pudo ser encontrado en el servidor. Es uno de los códigos de estado más comunes y se utiliza cuando una URL o recurso no existe.
+404 Not Found: Indica que el recurso solicitado no pudo ser encontrado en el servidor.
+Es uno de los códigos de estado más comunes y se utiliza cuando una URL o recurso no existe.
 
-500 Internal Server Error: Indica que el servidor ha encontrado un error inesperado que impide que la solicitud se complete. Este código se utiliza cuando no se puede determinar la causa exacta del error.
+500 Internal Server Error: Indica que el servidor ha encontrado un error inesperado que impide que la solicitud se complete.
+Este código se utiliza cuando no se puede determinar la causa exacta del error.
 
-503 Service Unavailable: Indica que el servidor no puede manejar la solicitud en ese momento debido a sobrecarga o mantenimiento. Es comúnmente utilizado para indicar que el servidor está temporalmente fuera de servicio.
+503 Service Unavailable: Indica que el servidor no puede manejar la solicitud en ese momento debido a sobrecarga o mantenimiento.
+Es comúnmente utilizado para indicar que el servidor está temporalmente fuera de servicio.
+
+
+--Status Code--
+100-199: respuestas informativas
+200-299: respuestas satisfactorias
+300-399: redirecciones
+400-499: errores del cliente/usuario
+500-599: errores del servidor

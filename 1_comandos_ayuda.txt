@@ -1,19 +1,45 @@
 Elegir archivo a ejecutar, cambiar ruta de ejecución.
+
+1)
 cd ..\
 cd .\'nombre_archivo
 
 -------
+2)
 cls -> Limpiar consola.
 
 -------
+3)
 node 'nombre_archivo.js' ejecuto el archivo js
 
 -------
+4)
 npm init -y
 
 -------
+5)
 
 npm install express
 
 -------
+6)
 control + c  -> Detengo el servidor y puedo ejecutar los comandos de la consola
+
+-------
+7)
+Esto sirve para que se ejecute automaticamente el servidor a la hora de actualizar un archivo (recarga automaticamente).
+Para no tener que estar apretando control + c en todo momento (cerrar y abrir el puerto nuevamente) 
+
+node --watch ./NodeJs2/app.js (pongo la ruta del archivo el cual quiero ejecutar.)
+
+-------
+8)
+Alternativa ->
+node --watch -> npm install nodemon -D ->Después modificar el script que setá en package.json
+
+-------
+9)
+REST CLIENT --> EXTENSIÓN PARA PROBAR LOS METODOS GET.PUT.DELETE,ETC
+THUNDER CLIENT
+
+

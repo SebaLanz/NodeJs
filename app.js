@@ -1,4 +1,3 @@
-console.log(1);
 
 const express = require('express');
 const app = express();
@@ -6,7 +5,12 @@ const port = 3000;
 const productosControlador = require('./clases/productos/productosManager'); // Asegúrate de que la ruta sea correcta
 // Ruta Raiz
 app.get('/', (req, res) => {
-  res.send('¡Hola, mundo desde Express!');
+  if (req.url === "/") {
+    res.statusCode = 200; //OK
+    res.setHeader('Content-Type', 'text/html', 'charset=utf-8') //seteo header para que me devuelta un texto plano y utf-8 (caracteres en esp.)
+    res.send('Bienvenido a la prueba de Express con contento de desarrollar una api2');
+  }
+  
 });
 
 
