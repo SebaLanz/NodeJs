@@ -19,7 +19,7 @@
     const validatorById = (producto, productoId, response) => {
         if (typeof productoId !== 'undefined') {
           if (producto) {
-            response.json(producto);
+            return true;
           } else if (isNaN(productoId)) {
             sendErrorResponse(response, statusCodes.BAD_REQUEST, `El ID debe ser numérico`);
           } else if (productoId <= 0) {
@@ -28,10 +28,26 @@
             sendErrorResponse(response, statusCodes.NOT_FOUND, `Producto con ID: ${productoId} no encontrado`);
           }
         }
-    };    
+    };
+    const validatorStatusActive = (producto, response) =>{
+      if (producto.length > 0) {
+        return true;
+      } else {
+        response.status(statusCodes.NOT_FOUND).json({ message: 'No se encontraron productos activos' });
+      }
+    }
+    const validatorStatusInactive = (producto, response) =>{
+      if (producto.length > 0) {
+        return true;
+      } else {
+        response.status(statusCodes.NOT_FOUND).json({ message: 'No se encontraron productos inactivos' });
+      }
+    }  
 
 module.exports = {
     sendErrorResponse,
     validatorById,
-    validatorByAll
+    validatorByAll,
+    validatorStatusActive,
+    validatorStatusInactive
 };

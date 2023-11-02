@@ -6,7 +6,9 @@ const productos = [
     "price": 49.99,
     "thumbnail": "imagen1.jpg",
     "code": "P001",
-    "stock": 100
+    "stock": 100,
+    "status": true,
+    "category": "calzado"
   },
   {
     "id_producto": 2,
@@ -15,7 +17,9 @@ const productos = [
     "price": 34.99,
     "thumbnail": "imagen2.jpg",
     "code": "P002",
-    "stock": 75
+    "stock": 75,
+    "status": false,
+    "category": "accesorios"
   },
   {
     "id_producto": 3,
@@ -24,7 +28,9 @@ const productos = [
     "price": 59.50,
     "thumbnail": "imagen3.jpg",
     "code": "P003",
-    "stock": 50
+    "stock": 50,
+    "status": true,
+    "category": "accesorios"
   },
   {
     "id_producto": 4,
@@ -33,7 +39,9 @@ const productos = [
     "price": 199.99,
     "thumbnail": "imagen4.jpg",
     "code": "P004",
-    "stock": 120
+    "stock": 120,
+    "status": true,
+    "category": "electrónica"
   },
   {
     "id_producto": 5,
@@ -42,7 +50,9 @@ const productos = [
     "price": 79.99,
     "thumbnail": "imagen5.jpg",
     "code": "P005",
-    "stock": 90
+    "stock": 90,
+    "status": true,
+    "category": "accesorios"
   },
   {
     "id_producto": 6,
@@ -51,7 +61,9 @@ const productos = [
     "price": 12.99,
     "thumbnail": "imagen6.jpg",
     "code": "P006",
-    "stock": 60
+    "stock": 60,
+    "status": true,
+    "category": "libros"
   },
   {
     "id_producto": 7,
@@ -60,7 +72,9 @@ const productos = [
     "price": 29.99,
     "thumbnail": "imagen7.jpg",
     "code": "P007",
-    "stock": 80
+    "stock": 80,
+    "status": true,
+    "category": "ropa"
   },
   {
     "id_producto": 8,
@@ -69,7 +83,9 @@ const productos = [
     "price": 39.95,
     "thumbnail": "imagen8.jpg",
     "code": "P008",
-    "stock": 110
+    "stock": 110,
+    "status": true,
+    "category": "accesorios"
   },
   {
     "id_producto": 9,
@@ -78,7 +94,9 @@ const productos = [
     "price": 69.99,
     "thumbnail": "imagen9.jpg",
     "code": "P009",
-    "stock": 70
+    "stock": 70,
+    "status": true,
+    "category": "electrónica"
   },
   {
     "id_producto": 10,
@@ -87,7 +105,9 @@ const productos = [
     "price": 79.50,
     "thumbnail": "imagen10.jpg",
     "code": "P010",
-    "stock": 95
+    "stock": 95,
+    "status": true,
+    "category": "herramientas"
   },
   {
     "id_producto": 11,
@@ -96,7 +116,9 @@ const productos = [
     "price": 29.99,
     "thumbnail": "imagen11.jpg",
     "code": "P011",
-    "stock": 65
+    "stock": 65,
+    "status": true,
+    "category": "perfumes"
   },
   {
     "id_producto": 12,
@@ -105,7 +127,9 @@ const productos = [
     "price": 899.99,
     "thumbnail": "imagen12.jpg",
     "code": "P012",
-    "stock": 45
+    "stock": 45,
+    "status": true,
+    "category": "electrónica"
   },
   {
     "id_producto": 13,
@@ -114,7 +138,9 @@ const productos = [
     "price": 49.95,
     "thumbnail": "imagen13.jpg",
     "code": "P013",
-    "stock": 85
+    "stock": 85,
+    "status": true,
+    "category": "higiene"
   },
   {
     "id_producto": 14,
@@ -123,7 +149,9 @@ const productos = [
     "price": 19.99,
     "thumbnail": "imagen14.jpg",
     "code": "P014",
-    "stock": 70
+    "stock": 70,
+    "status": true,
+    "category": "deportes"
   },
   {
     "id_producto": 15,
@@ -132,7 +160,9 @@ const productos = [
     "price": 54.99,
     "thumbnail": "imagen15.jpg",
     "code": "P015",
-    "stock": 55
+    "stock": 55,
+    "status": true,
+    "category": "accesorios"
   },
   {
     "id_producto": 16,
@@ -141,7 +171,9 @@ const productos = [
     "price": 34.50,
     "thumbnail": "imagen16.jpg",
     "code": "P016",
-    "stock": 75
+    "stock": 75,
+    "status": true,
+    "category": "herramientas"
   },
   {
     "id_producto": 17,
@@ -150,7 +182,9 @@ const productos = [
     "price": 89.99,
     "thumbnail": "imagen17.jpg",
     "code": "P017",
-    "stock": 40
+    "stock": 40,
+    "status": true,
+    "category": "joyería"
   },
   {
     "id_producto": 18,
@@ -159,7 +193,9 @@ const productos = [
     "price": 44.95,
     "thumbnail": "imagen18.jpg",
     "code": "P018",
-    "stock": 60
+    "stock": 60,
+    "status": true,
+    "category": "ropa"
   },
   {
     "id_producto": 19,
@@ -168,7 +204,9 @@ const productos = [
     "price": 19.99,
     "thumbnail": "imagen19.jpg",
     "code": "P019",
-    "stock": 90
+    "stock": 90,
+    "status": true,
+    "category": "accesorios"
   },
   {
     "id_producto": 20,
@@ -177,9 +215,12 @@ const productos = [
     "price": 69.99,
     "thumbnail": "imagen20.jpg",
     "code": "P020",
-    "stock": 50
+    "stock": 50,
+    "status": true,
+    "category": "cocina"
   }
 ];
+
 
 //Exporto.
 module.exports = productos;

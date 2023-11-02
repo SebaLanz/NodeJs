@@ -1,0 +1,9 @@
+path ->
+
+App -> clases -> productos -> productosManager -> errorManager -> statusCodes
+
+
+GET -> Obtener.
+PUT -> actualizar.
+POST -> Insertar.
+DELETE -> Deletear.

@@ -2,6 +2,9 @@
 const express = require('express');
 const app = express();
 const port = 8080;
+app.use(express.json());
+app.use(express.urlencoded({extends:true}));
+
 const productosControlador = require('./clases/productos/productosManager');
 
 
@@ -18,12 +21,19 @@ app.get('/', (req, res) => {
 
 //Productos ---------------------------------------------------->
 //Todos los productos
-app.get('/products', productosControlador.GetProductosAll);
-//--------------------------------------------------------------
-//Productos por ID (código)
-app.get('/products/:id', productosControlador.GetProductosById);
-
-
+app.get('/api/products', productosControlador.GetProductosAll);
+//-------------------------------------------------------------->
+//Productos Activos
+app.get('/api/products/active', productosControlador.GetProductosActives);
+//-------------------------------------------------------------->
+//Productos Inactivos
+app.get('/api/products/inactive', productosControlador.GetProductosInactives);
+//-------------------------------------------------------------->
+//Productos por ID (id)
+app.get('/api/products/:id', productosControlador.GetProductosById);
+//-------------------------------------------------------------->
+//PUT------------------------------------------------------------
+app.put('/api/products/update/:id', productosControlador.updateProductById);
 
 //Fin Productos
 // Iniciar el servidor
