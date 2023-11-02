@@ -1,6 +1,7 @@
 
 const productos = require('./productos.js');
-const { validatorById, validatorByAll, validatorStatusActive, validatorStatusInactive } = require('../error/errorManager.js');
+const { validatorById, validatorByAll, validatorStatusActive, validatorStatusInactive, validatorUpdate } = require('../error/errorManager.js');
+const { json } = require('express');
 
     //------>GetProductosAll<------
     const GetProductosAll = (request, response) => {
@@ -40,19 +41,7 @@ const { validatorById, validatorByAll, validatorStatusActive, validatorStatusIna
         const productId = +request.params.id;
         const updatedProduct = request.body;
         const productToUpdate = productos.find((producto) => producto.id_producto === productId);
-      
-        if (productToUpdate) {
-          // Actualiza todas las propiedades del producto, excepto el ID
-          for (const key in updatedProduct) {
-            if (key !== 'id_producto') {
-              productToUpdate[key] = updatedProduct[key];
-            }
-          }
-      
-          response.json(productToUpdate);
-        } else {
-          response.status(404).json({ message: 'Producto no encontrado3' });//Duda
-        }
+        validatorUpdate(productToUpdate,updatedProduct,response);   
       };
       
     //FIN UPDATE

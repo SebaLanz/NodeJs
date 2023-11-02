@@ -1,5 +1,6 @@
     
     const statusCodes = require('./statusCodes');
+    const fs = require('fs'); //instancio filesistem
 
     const sendErrorResponse = (response, statusCode, message) =>{
         response.status(statusCode).json({ message });
@@ -33,21 +34,36 @@
       if (producto.length > 0) {
         return true;
       } else {
-        response.status(statusCodes.NOT_FOUND).json({ message: 'No se encontraron productos activos' });
+        return sendErrorResponse(response, statusCodes.NOT_FOUND, 'No se encontraron productos activos');
       }
     }
     const validatorStatusInactive = (producto, response) =>{
       if (producto.length > 0) {
         return true;
       } else {
-        response.status(statusCodes.NOT_FOUND).json({ message: 'No se encontraron productos inactivos' });
+        return sendErrorResponse(response, statusCodes.NOT_FOUND, 'No se encontraron productos inactivos');
       }
-    }  
+    }
+    const validatorUpdate = (productToUpdate, updatedProduct,response) => {
+      if (productToUpdate) {
+        // Actualiza todas las propiedades del producto, excepto el ID
+        for (const key in updatedProduct) {
+          if (key !== 'id_producto') {
+            productToUpdate[key] = updatedProduct[key];
+          }
+        }
+
+        return sendErrorResponse(response, statusCodes.OK, 'Producto actualizado');
+      } else {
+        return sendErrorResponse(response, statusCodes.NOT_FOUND, 'Producto no encontrado');
+      }
+    }
 
 module.exports = {
     sendErrorResponse,
     validatorById,
     validatorByAll,
     validatorStatusActive,
-    validatorStatusInactive
+    validatorStatusInactive,
+    validatorUpdate
 };
