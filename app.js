@@ -1,8 +1,10 @@
 
 const express = require('express');
 const app = express();
-const port = 3000;
-const productosControlador = require('./clases/productos/productosManager'); // Asegúrate de que la ruta sea correcta
+const port = 8080;
+const productosControlador = require('./clases/productos/productosManager');
+
+
 // Ruta Raiz
 app.get('/', (req, res) => {
   if (req.url === "/") {
@@ -16,10 +18,10 @@ app.get('/', (req, res) => {
 
 //Productos ---------------------------------------------------->
 //Todos los productos
-app.get('/productos', productosControlador.GetProductosAll);
+app.get('/products', productosControlador.GetProductosAll);
 //--------------------------------------------------------------
 //Productos por ID (código)
-app.get('/productos/:id', productosControlador.GetProductosById);
+app.get('/products/:id', productosControlador.GetProductosById);
 
 
 

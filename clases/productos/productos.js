@@ -1,6 +1,6 @@
-
 const productos = [
   {
+    "id_producto": 1,
     "title": "Zapatos elegantes",
     "description": "Zapatos de cuero elegantes para ocasiones especiales.",
     "price": 49.99,
@@ -9,6 +9,7 @@ const productos = [
     "stock": 100
   },
   {
+    "id_producto": 2,
     "title": "Reloj de pulsera deportivo",
     "description": "Reloj resistente al agua y diseñado para actividades deportivas.",
     "price": 34.99,
@@ -17,6 +18,7 @@ const productos = [
     "stock": 75
   },
   {
+    "id_producto": 3,
     "title": "Bolso de viaje",
     "description": "Bolso espacioso y duradero para tus aventuras de viaje.",
     "price": 59.50,
@@ -25,6 +27,7 @@ const productos = [
     "stock": 50
   },
   {
+    "id_producto": 4,
     "title": "Cámara digital compacta",
     "description": "Cámara fácil de usar con calidad de imagen excepcional.",
     "price": 199.99,
@@ -33,6 +36,7 @@ const productos = [
     "stock": 120
   },
   {
+    "id_producto": 5,
     "title": "Auriculares Bluetooth",
     "description": "Auriculares inalámbricos con cancelación de ruido para una experiencia de sonido inmersiva.",
     "price": 79.99,
@@ -41,6 +45,7 @@ const productos = [
     "stock": 90
   },
   {
+    "id_producto": 6,
     "title": "Libro de misterio",
     "description": "Una novela emocionante llena de suspense y giros inesperados.",
     "price": 12.99,
@@ -49,6 +54,7 @@ const productos = [
     "stock": 60
   },
   {
+    "id_producto": 7,
     "title": "Camiseta de diseño",
     "description": "Camiseta de algodón con un diseño exclusivo.",
     "price": 29.99,
@@ -57,6 +63,7 @@ const productos = [
     "stock": 80
   },
   {
+    "id_producto": 8,
     "title": "Gafas de sol de moda",
     "description": "Gafas de sol con estilo para proteger tus ojos del sol.",
     "price": 39.95,
@@ -65,6 +72,7 @@ const productos = [
     "stock": 110
   },
   {
+    "id_producto": 9,
     "title": "Teclado mecánico para juegos",
     "description": "Teclado diseñado para jugadores con retroiluminación LED personalizable.",
     "price": 69.99,
@@ -73,6 +81,7 @@ const productos = [
     "stock": 70
   },
   {
+    "id_producto": 10,
     "title": "Set de herramientas",
     "description": "Set completo de herramientas de calidad para cualquier proyecto de bricolaje.",
     "price": 79.50,
@@ -81,6 +90,7 @@ const productos = [
     "stock": 95
   },
   {
+    "id_producto": 11,
     "title": "Perfume floral",
     "description": "Fragancia floral suave y elegante para mujeres.",
     "price": 29.99,
@@ -89,6 +99,7 @@ const productos = [
     "stock": 65
   },
   {
+    "id_producto": 12,
     "title": "Laptop ultradelgada",
     "description": "Laptop ultradelgada y potente para el trabajo y el entretenimiento.",
     "price": 899.99,
@@ -97,6 +108,7 @@ const productos = [
     "stock": 45
   },
   {
+    "id_producto": 13,
     "title": "Cepillo de dientes eléctrico",
     "description": "Cepillo de dientes eléctrico con tecnología de limpieza avanzada.",
     "price": 49.95,
@@ -105,6 +117,7 @@ const productos = [
     "stock": 85
   },
   {
+    "id_producto": 14,
     "title": "Pelota de fútbol",
     "description": "Pelota de fútbol oficial para entrenamientos y partidos.",
     "price": 19.99,
@@ -113,6 +126,7 @@ const productos = [
     "stock": 70
   },
   {
+    "id_producto": 15,
     "title": "Mochila resistente al agua",
     "description": "Mochila duradera y resistente al agua para aventuras al aire libre.",
     "price": 54.99,
@@ -121,6 +135,7 @@ const productos = [
     "stock": 55
   },
   {
+    "id_producto": 16,
     "title": "Caja de herramientas",
     "description": "Caja de herramientas portátil con múltiples compartimentos para organizar tus herramientas.",
     "price": 34.50,
@@ -129,6 +144,7 @@ const productos = [
     "stock": 75
   },
   {
+    "id_producto": 17,
     "title": "Set de joyería de plata",
     "description": "Set de joyería de plata esterlina con colgantes y pulsera.",
     "price": 89.99,
@@ -137,6 +153,7 @@ const productos = [
     "stock": 40
   },
   {
+    "id_producto": 18,
     "title": "Pantalones vaqueros modernos",
     "description": "Pantalones vaqueros de corte moderno y cómodos para cualquier ocasión.",
     "price": 44.95,
@@ -145,6 +162,7 @@ const productos = [
     "stock": 60
   },
   {
+    "id_producto": 19,
     "title": "Paraguas plegable",
     "description": "Paraguas plegable compacto para mantenerte seco en días de lluvia.",
     "price": 19.99,
@@ -153,6 +171,7 @@ const productos = [
     "stock": 90
   },
   {
+    "id_producto": 20,
     "title": "Juego de sartenes antiadherentes",
     "description": "Juego de sartenes antiadherentes de alta calidad para cocinar sin problemas.",
     "price": 69.99,
