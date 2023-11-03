@@ -44,19 +44,12 @@
         return sendErrorResponse(response, statusCodes.NOT_FOUND, 'No se encontraron productos inactivos');
       }
     }
-    const validatorUpdate = (productToUpdate, updatedProduct,response) => {
-      if (productToUpdate) {
-        // Actualiza todas las propiedades del producto, excepto el ID
-        for (const key in updatedProduct) {
-          if (key !== 'id_producto') {
-            productToUpdate[key] = updatedProduct[key];
-          }
-        }
-
+    const validatorUpdate = (response, boolean, productId) => {
+      if (boolean) {
         return sendErrorResponse(response, statusCodes.OK, 'Producto actualizado');
-      } else {
-        return sendErrorResponse(response, statusCodes.NOT_FOUND, 'Producto no encontrado');
       }
+        return sendErrorResponse(response, statusCodes.BAD_REQUEST, 'Error en la petición'); 
+      //return sendErrorResponse(response, statusCodes.NOT_FOUND , validatorById(boolean, productId,  response)); // si no realizar toda la validación
     }
 
 module.exports = {

@@ -1,4 +1,4 @@
-const productos = [
+module.exports = [
   {
     "id_producto": 1,
     "title": "Zapatos elegantes",
@@ -6,7 +6,7 @@ const productos = [
     "price": 49.99,
     "thumbnail": "imagen1.jpg",
     "code": "P001",
-    "stock": 100,
+    "stock": 11123,
     "status": true,
     "category": "calzado"
   },
@@ -18,14 +18,14 @@ const productos = [
     "thumbnail": "imagen2.jpg",
     "code": "P002",
     "stock": 75,
-    "status": false,
+    "status": true,
     "category": "accesorios"
   },
   {
     "id_producto": 3,
     "title": "Bolso de viaje",
     "description": "Bolso espacioso y duradero para tus aventuras de viaje.",
-    "price": 59.50,
+    "price": 59.5,
     "thumbnail": "imagen3.jpg",
     "code": "P003",
     "stock": 50,
@@ -102,7 +102,7 @@ const productos = [
     "id_producto": 10,
     "title": "Set de herramientas",
     "description": "Set completo de herramientas de calidad para cualquier proyecto de bricolaje.",
-    "price": 79.50,
+    "price": 79.5,
     "thumbnail": "imagen10.jpg",
     "code": "P010",
     "stock": 95,
@@ -168,7 +168,7 @@ const productos = [
     "id_producto": 16,
     "title": "Caja de herramientas",
     "description": "Caja de herramientas portátil con múltiples compartimentos para organizar tus herramientas.",
-    "price": 34.50,
+    "price": 34.5,
     "thumbnail": "imagen16.jpg",
     "code": "P016",
     "stock": 75,
@@ -219,8 +219,4 @@ const productos = [
     "status": true,
     "category": "cocina"
   }
-];
-
-
-//Exporto.
-module.exports = productos;
+]

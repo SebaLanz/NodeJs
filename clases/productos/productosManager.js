@@ -1,6 +1,7 @@
-
+const fs = require('fs');
+const path = require('path');
 const productos = require('./productos.js');
-const { validatorById, validatorByAll, validatorStatusActive, validatorStatusInactive, validatorUpdate } = require('../error/errorManager.js');
+const { validatorById, validatorByAll, validatorStatusActive, validatorStatusInactive, validatorUpdate } = require('../error/validatorManager.js');
 const { json } = require('express');
 
     //------>GetProductosAll<------
@@ -41,9 +42,26 @@ const { json } = require('express');
         const productId = +request.params.id;
         const updatedProduct = request.body;
         const productToUpdate = productos.find((producto) => producto.id_producto === productId);
-        validatorUpdate(productToUpdate,updatedProduct,response);   
-      };
-      
+
+        if (productToUpdate) {
+            for (const key in updatedProduct) {
+                if (key !== 'id_producto' && key !== 'code') {
+                    productToUpdate[key] = updatedProduct[key];
+                }
+            }
+            const filePath = path.join(__dirname, '../productos/productos.js');
+            fs.writeFile(filePath, 'module.exports = ' + JSON.stringify(productos, null, 2), (err) => {
+            if (err) {
+                console.error(err);
+                return response.status(500).json({ error: 'Error al guardar los productos' });
+            }
+            validatorUpdate(response, true, productId);
+            });
+        }else{
+            validatorUpdate(response, false, productId);
+        }
+    };
+    
     //FIN UPDATE
     module.exports = {
         GetProductosAll,

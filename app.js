@@ -33,6 +33,7 @@ app.get('/api/products/inactive', productosControlador.GetProductosInactives);
 app.get('/api/products/:id', productosControlador.GetProductosById);
 //-------------------------------------------------------------->
 //PUT------------------------------------------------------------
+//Actualizar producto por id
 app.put('/api/products/update/:id', productosControlador.updateProductById);
 
 //Fin Productos
