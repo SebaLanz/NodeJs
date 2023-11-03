@@ -44,7 +44,9 @@ app.put('/api/products/:id', productosControlador.updateProductById);
 //POST------------------------------------------------------------
 //Crear
 app.post('/api/', productosControlador.createProduct);
-
+//Fin Crear
+//Inicio Delete
+app.delete('/api/products/delete/:id', productosControlador.deleteProduct);
 
 
 //Fin Productos

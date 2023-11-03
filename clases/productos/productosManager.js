@@ -113,7 +113,16 @@ const { json } = require('express');
     //FIN CREATE
     //INICIO DELETE
 
-
+    const deleteProduct = (request, response) => {
+      const productToDelete = GetProductosById(request, response);
+      if (productToDelete) {
+        const idToDelete = productToDelete.id_producto;
+        // Ahora puedes usar idToDelete para lo que necesites en tu función delete
+        //response.status(201).json({ message: idToDelete }); //Muestro el id de momento para pruebas, no es necesario.
+      }
+      
+    };
+    
 
     //FIN DELETE.
 
@@ -123,5 +132,6 @@ const { json } = require('express');
         GetProductosActives,
         GetProductosInactives,
         updateProductById,
-        createProduct
+        createProduct,
+        deleteProduct
     };
