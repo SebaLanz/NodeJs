@@ -1,6 +1,6 @@
     
     const statusCodes = require('./statusCodes');
-    const fs = require('fs'); //instancio filesistem
+    const fs = require('fs'); //instancio filesystem
 
     const sendErrorResponse = (response, statusCode, message) =>{
         response.status(statusCode).json({ message });
@@ -48,7 +48,14 @@
       if (boolean) {
         return sendErrorResponse(response, statusCodes.OK, 'Producto actualizado');
       }
-        return sendErrorResponse(response, statusCodes.BAD_REQUEST, 'Error en la petición'); 
+      else if (!+productId) {
+        return sendErrorResponse(response, statusCodes.BAD_REQUEST, 'Ingrese un valor númerico'); 
+      }
+      else if (productId <= 0){
+        return sendErrorResponse(response, statusCodes.BAD_REQUEST, 'Ingrese un valor númerico mayor a 0'); 
+      }
+      else{ return sendErrorResponse(response, statusCodes.BAD_REQUEST, 'Producto no encontrado, no se pudo actualizar.'); 
+      }
       //return sendErrorResponse(response, statusCodes.NOT_FOUND , validatorById(boolean, productId,  response)); // si no realizar toda la validación
     }
 

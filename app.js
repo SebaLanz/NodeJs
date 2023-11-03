@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 });
 
 
-//Productos ---------------------------------------------------->
+//Productos -------------------------------------------------------------------------------------------------------------------------------------------------------->
 //Todos los productos
 app.get('/api/products', productosControlador.GetProductosAll);
 //-------------------------------------------------------------->
@@ -31,10 +31,21 @@ app.get('/api/products/inactive', productosControlador.GetProductosInactives);
 //-------------------------------------------------------------->
 //Productos por ID (id)
 app.get('/api/products/:id', productosControlador.GetProductosById);
-//-------------------------------------------------------------->
+
+/* FIN GETS -------------------------------------------------------------------------------------------------------------------------------------------------------->*/
+
+
+
 //PUT------------------------------------------------------------
 //Actualizar producto por id
-app.put('/api/products/update/:id', productosControlador.updateProductById);
+app.put('/api/products/:id', productosControlador.updateProductById);
+
+/* FIN PUTS -------------------------------------------------------------------------------------------------------------------------------------------------------->*/
+//POST------------------------------------------------------------
+//Crear
+app.post('/api/', productosControlador.createProduct);
+
+
 
 //Fin Productos
 // Iniciar el servidor
