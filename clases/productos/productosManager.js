@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const productos = require('./productos.js');
-const { validatorById, validatorByAll, validatorStatusActive, validatorStatusInactive, validatorUpdate } = require('../error/validatorManager.js');
+const { validatorById, validatorByAll, validatorStatusActive, validatorStatusInactive,
+    validatorUpdate, sendErrorResponse } = require('../error/validatorManager.js');
 const { json } = require('express');
 
     //------>GetProductosAll<------
@@ -14,13 +15,16 @@ const { json } = require('express');
         }
     };
     //------>GetProductosById<------
-    const GetProductosById = (request, response) => {
-        const productId = +request.params.id; // con el +reque... parseo el valor que me viene por param a número, es lo mismo que si hago ParseInt(....)
-        const producto = productos.productos.find((producto) => producto.id_producto === productId);// Buscar el producto por su ID
-        if(validatorById(producto, productId, response)){
-            response.json(producto)
-        }
+    const GetProductosById = (productId, response) => {
+      productId = +productId; // Parsea el productId a número si es necesario
+      const producto = productos.productos.find((producto) => producto.id_producto === productId);
+      if (!producto) {
+        sendErrorResponse(response, 404, 'Producto no encontrado');
+        return null;
+      } 
+      return producto;
     };
+    
     //------>GetProductosActives<------
     const GetProductosActives = (request, response) => {
         const producto = productos.productos.filter((producto) => producto.status === true);
@@ -42,18 +46,19 @@ const { json } = require('express');
       const productId = +request.params.id;
       const updatedProduct = request.body;
       const productToUpdate = productos.productos.find((producto) => producto.id_producto === productId);
-    
+
       if (productToUpdate) {
         for (const key in updatedProduct) {
           if (key !== 'id_producto' && key !== 'code') {
             productToUpdate[key] = updatedProduct[key];
           }
         }
-        
         const lastProductId = productos.lastProductId;
         const formattedProductsArray = productos.productos.map(producto => JSON.stringify(producto, null, 2)).join(',\n');
-        const formattedProductos = `const lastProductId = ${lastProductId};\n\nconst productos = [\n${formattedProductsArray}\n];\n\nmodule.exports = {\n  productos,\n  lastProductId\n};`;
-    
+        const formattedProductos = `const lastProductId = ${lastProductId};\n\nconst productos = [\n${formattedProductsArray}\n];\n\n
+        module.exports = 
+        {\n   productos,\n  
+              lastProductId\n};`;
         const filePath = path.join(__dirname, '../productos/productos.js');
         fs.writeFile(filePath, formattedProductos, (err) => {
           if (err) {
@@ -71,7 +76,7 @@ const { json } = require('express');
     //INICIO Create
     const createProduct = (request, response) => {
       const newProduct = request.body;//DATOS DE LA PETICIÓN
-      if (!newProduct.title || !newProduct.description || !newProduct.price || !newProduct.category) {
+      if (!newProduct.title || !newProduct.description || !newProduct.price || !newProduct.category || !newProduct.stock || !newProduct.code) {
         return response.status(400).json({ error: 'Faltan datos obligatorios' });
       }
       // no permito código repetido
@@ -80,20 +85,15 @@ const { json } = require('express');
       }
       // Obtengo el id de la variable lastProductId del archivo productos.
       const lastProductId = productos.lastProductId;
-    
       // Verifica si lastProductId es un número // en caso de que haya un error y la variable se modifique y pase a ser un valor diferente a un número, gen
       //ero un error 500 por parte del serv.
       if (typeof lastProductId !== 'number') {
         return response.status(500).json({ error: 'lastProductId no es un número' });
       }
       const newProductId = lastProductId + 1; //Genero el id para el nuevo producto.
-
       newProduct.id_producto = newProductId; // lo asigno al nuevo array del producto nuevo. Podría hacerlo sin crear la variable, pero para entender mejor la cree.
-
       const productWithId = { id_producto: newProductId, ...newProduct };// Agreg la propiedad id_producto al principio del objeto newProduct gracias al spread
-
       productos.productos.push(productWithId);// Agrega el nuevo producto al final con push.
-    
       // Formateo el archivo producto, genero la variable de lastid con el nuevo id y creo el array de productos.
       const formattedProductos = `const lastProductId = ${newProductId};\n\nconst productos = [\n  ${productos.productos.map(producto => JSON.stringify(producto, null, 2)).join(',\n')}];
         module.exports = {
@@ -114,14 +114,30 @@ const { json } = require('express');
     //INICIO DELETE
 
     const deleteProduct = (request, response) => {
-      const productToDelete = GetProductosById(request, response);
-      if (productToDelete) {
-        const idToDelete = productToDelete.id_producto;
-        // Ahora puedes usar idToDelete para lo que necesites en tu función delete
-        //response.status(201).json({ message: idToDelete }); //Muestro el id de momento para pruebas, no es necesario.
+      const productId = +request.params.id;
+      const index = productos.productos.findIndex((producto) => producto.id_producto === productId);
+      if (index !== -1) {
+        const deletedProduct = productos.productos.splice(index, 1)[0]; // elimino el producto
+        const updatedProductsArray = productos.productos.map(producto => JSON.stringify(producto, null, 2)).join(',\n');
+        const formattedProductos = `const lastProductId = ${productos.lastProductId};\n\nconst productos = [\n${updatedProductsArray}\n];\n
+        module.exports =
+        {productos,\n  
+          lastProductId\n};`;
+              
+        const filePath = path.join(__dirname, '../productos/productos.js');
+        fs.writeFile(filePath, formattedProductos, (err) => {
+          if (err) {
+            return response.status(500).json({ error: 'Error al guardar los productos' });
+          }
+          response.status(200).json({ message: `Producto con ID: ${productId} eliminado`});
+        });
+      } else {
+        response.status(404).json({ message: `No se encontró el producto con ID: ${productId}`});
       }
-      
     };
+    
+    
+    
     
 
     //FIN DELETE.

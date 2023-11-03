@@ -1,4 +1,4 @@
-const lastProductId = 21;
+const lastProductId = 26;
 
 const productos = [
 {
@@ -9,7 +9,7 @@ const productos = [
   "thumbnail": "imagen1.jpg",
   "code": "P001",
   "stock": 11123,
-  "status": true,
+  "status": false,
   "category": "calzado"
 },
 {
@@ -209,43 +209,11 @@ const productos = [
   "stock": 90,
   "status": true,
   "category": "accesorios"
-},
-{
-  "id_producto": 20,
-  "title": "Juego de sartenes antiadherentes",
-  "description": "Juego de sartenes antiadherentes de alta calidad para cocinar sin problemas.",
-  "price": 69.99,
-  "thumbnail": "imagen20.jpg",
-  "code": "P020",
-  "stock": 50,
-  "status": true,
-  "category": "cocina"
-},
-{
-  "id_producto": 21,
-  "title": "Juego de sartenes antiadherentes2",
-  "description": "Juego de sartenes antiadherentes de alta calidad para cocinar sin problemas2.",
-  "price": 69.99,
-  "thumbnail": "imagen20.jpg",
-  "code": "P021",
-  "stock": 505,
-  "status": true,
-  "category": "cocina"
-},
-{
-  "id_producto": 22,
-  "title": "title22",
-  "description": "Juego de sartenes antiadherentes de alta calidad para cocinar sin problemas22.",
-  "price": 22,
-  "thumbnail": "imagen22.jpg",
-  "code": "P022",
-  "stock": 222,
-  "status": true,
-  "category": "cocina"
 }
 ];
 
-module.exports = {
-  productos,
-  lastProductId
+        module.exports =
+        {productos,
+  
+          lastProductId
 };

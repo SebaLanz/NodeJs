@@ -1,7 +1,11 @@
     
     const statusCodes = require('./statusCodes');
     const fs = require('fs'); //instancio filesystem
-
+    let msg = '';
+    
+    
+    
+    
     const sendErrorResponse = (response, statusCode, message) =>{
         response.status(statusCode).json({ message });
     }
@@ -46,7 +50,8 @@
     }
     const validatorUpdate = (response, boolean, productId) => {
       if (boolean) {
-        return sendErrorResponse(response, statusCodes.OK, 'Producto actualizado');
+        msg = 'Producto actualizado2';
+        return sendErrorResponse(response, statusCodes.OK, msg);
       }
       else if (!+productId) {
         return sendErrorResponse(response, statusCodes.BAD_REQUEST, 'Ingrese un valor númerico'); 
@@ -65,5 +70,5 @@ module.exports = {
     validatorByAll,
     validatorStatusActive,
     validatorStatusInactive,
-    validatorUpdate
+    validatorUpdate,
 };

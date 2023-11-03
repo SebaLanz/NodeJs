@@ -30,7 +30,13 @@ app.get('/api/products/active', productosControlador.GetProductosActives);
 app.get('/api/products/inactive', productosControlador.GetProductosInactives);
 //-------------------------------------------------------------->
 //Productos por ID (id)
-app.get('/api/products/:id', productosControlador.GetProductosById);
+app.get('/api/products/:id', (request, response) => {
+  const producto = productosControlador.GetProductosById(request.params.id, response);
+  if (producto) {
+    response.json(producto);
+  }
+});
+
 
 /* FIN GETS -------------------------------------------------------------------------------------------------------------------------------------------------------->*/
 
