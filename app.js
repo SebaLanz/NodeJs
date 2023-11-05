@@ -6,6 +6,8 @@ app.use(express.json());
 app.use(express.urlencoded({extends:true}));
 
 const productosControlador = require('./clases/productos/productosManager');
+const { Usuario } = require('./clases/usuarios/usuariosManager.js');
+const users = new Usuario();
 
 
 // Ruta Raiz
@@ -15,47 +17,36 @@ app.get('/', (req, res) => {
     res.setHeader('Content-Type', 'text/html', 'charset=utf-8') //seteo header para que me devuelta un texto plano y utf-8 (caracteres en esp.)
     res.send('Bienvenido a la prueba de Express con contento de desarrollar una api2');
   }
-  
 });
 
-
-//Productos -------------------------------------------------------------------------------------------------------------------------------------------------------->
-//Todos los productos
+//Productos --->
 app.get('/api/products', productosControlador.GetProductosAll);
-//-------------------------------------------------------------->
-//Productos Activos
 app.get('/api/products/active', productosControlador.GetProductosActives);
-//-------------------------------------------------------------->
-//Productos Inactivos
 app.get('/api/products/inactive', productosControlador.GetProductosInactives);
-//-------------------------------------------------------------->
-//Productos por ID (id)
 app.get('/api/products/:id', (request, response) => {
   const producto = productosControlador.GetProductosById(request.params.id, response);
   if (producto) {
     response.json(producto);
   }
 });
-
-
-/* FIN GETS -------------------------------------------------------------------------------------------------------------------------------------------------------->*/
-
-
-
-//PUT------------------------------------------------------------
-//Actualizar producto por id
 app.put('/api/products/:id', productosControlador.updateProductById);
-
-/* FIN PUTS -------------------------------------------------------------------------------------------------------------------------------------------------------->*/
-//POST------------------------------------------------------------
-//Crear
 app.post('/api/', productosControlador.createProduct);
-//Fin Crear
-//Inicio Delete
 app.delete('/api/products/delete/:id', productosControlador.deleteProduct);
+//Fin Productos ---!
+
+//Inicio Usuarios --->
+app.get('/api/users', users.getUsuariosAll);
+app.get('/api/users/active', users.getUsuarioActivo);
+app.get('/api/users/inactive', users.getUsuarioInactivo);
+app.get('/api/users/:id', (request, response) => {
+  const usuario = users.getUsuarioById(request.params.id, response);
+  if (usuario) {
+    response.json(usuario);
+  }
+});
 
 
-//Fin Productos
+
 // Iniciar el servidor
 app.listen(port, () => {
   console.log(`Servidor Express escuchando en el puerto ${port}`);

@@ -9,7 +9,7 @@ const productos = [
   "thumbnail": "imagen1.jpg",
   "code": "P001",
   "stock": 11123,
-  "status": false,
+  "status": true,
   "category": "calzado"
 },
 {
@@ -20,7 +20,7 @@ const productos = [
   "thumbnail": "imagen2.jpg",
   "code": "P002",
   "stock": 75,
-  "status": false,
+  "status": true,
   "category": "accesorios"
 },
 {
@@ -31,7 +31,7 @@ const productos = [
   "thumbnail": "imagen3.jpg",
   "code": "P003",
   "stock": 50,
-  "status": false,
+  "status": true,
   "category": "accesorios"
 },
 {
@@ -212,8 +212,10 @@ const productos = [
 }
 ];
 
-        module.exports =
-        {productos,
+
+        module.exports = 
+        {
+   productos,
   
-          lastProductId
+              lastProductId
 };

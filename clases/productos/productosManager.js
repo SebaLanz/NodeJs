@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const productos = require('./productos.js');
 const { validatorById, validatorByAll, validatorStatusActive, validatorStatusInactive,
-    validatorUpdate, sendErrorResponse } = require('../error/validatorManager.js');
+    validatorUpdate, sendErrorResponse } = require('../error/validatorManagerProducts.js');
 const { json } = require('express');
 
     //------>GetProductosAll<------
@@ -19,7 +19,8 @@ const { json } = require('express');
       productId = +productId; // Parsea el productId a número si es necesario
       const producto = productos.productos.find((producto) => producto.id_producto === productId);
       if (!producto) {
-        sendErrorResponse(response, 404, 'Producto no encontrado');
+        //sendErrorResponse(response, 404, 'Producto no encontrado');
+        validatorById(producto, productId, response);
         return null;
       } 
       return producto;
@@ -27,15 +28,17 @@ const { json } = require('express');
     
     //------>GetProductosActives<------
     const GetProductosActives = (request, response) => {
+        const tipo = 'productos';
         const producto = productos.productos.filter((producto) => producto.status === true);
-        if(validatorStatusActive(producto, response)){
+        if(validatorStatusActive(producto, response, tipo)){
             response.json(producto);
         }
     };
     //------>GetProductosInactives<------
     const GetProductosInactives = (request, response) => {
+      const tipo = 'productos';
         const producto = productos.productos.filter((producto) => producto.status === false);
-        if(validatorStatusInactive(producto, response)){
+        if(validatorStatusInactive(producto, response, tipo)){
             response.json(producto);
         }
     };
@@ -43,6 +46,7 @@ const { json } = require('express');
     //INICIO UPDATE
     //------->updateProductById<---------
     const updateProductById = (request, response) => {
+      const tipo = 'Producto';
       const productId = +request.params.id;
       const updatedProduct = request.body;
       const productToUpdate = productos.productos.find((producto) => producto.id_producto === productId);
@@ -64,10 +68,10 @@ const { json } = require('express');
           if (err) {
             return response.status(500).json({ error: 'Error al guardar los productos' });
           }
-          validatorUpdate(response, true, productId);
+          validatorUpdate(response, true, productId, tipo);
         });
       } else {
-        validatorUpdate(response, false, productId);
+        validatorUpdate(response, false, productId, tipo);
       }
     };
     
