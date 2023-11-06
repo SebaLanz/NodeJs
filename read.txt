@@ -1,6 +1,7 @@
 path ->
 
 App -> clases -> productos -> productosManager -> errorManager -> statusCodes
+App -> clases -> users -> usuariosManager -> errorManager -> statusCodes
 
 
 GET -> Obtener.

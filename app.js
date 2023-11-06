@@ -1,13 +1,19 @@
-
+const utils = require('./utils');
 const express = require('express');
 const app = express();
 const port = 8080;
 app.use(express.json());
 app.use(express.urlencoded({extends:true}));
 
-const productosControlador = require('./clases/productos/productosManager');
-const { Usuario } = require('./clases/usuarios/usuariosManager.js');
+const productosControlador = require(utils.getAbsolutePath('./clases/productos/productosManager.js')); // Genero ruta absoluta.
+const { Usuario } = require(utils.getAbsolutePath('./clases/usuarios/usuariosManager.js'));
 const users = new Usuario();
+
+
+
+
+
+
 
 
 // Ruta Raiz

@@ -1,9 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const productos = require('./productos.js');
-const { validatorById, validatorByAll, validatorStatusActive, validatorStatusInactive,
-    validatorUpdate, sendErrorResponse } = require('../error/validatorManagerProducts.js');
-const { json } = require('express');
+const utils = require('../../utils.js');
+const productos = require(utils.getAbsolutePath('clases/productos/productos.js'));
+const { validatorById, validatorByAll, validatorStatusActive, validatorStatusInactive, validatorUpdate } = require(utils.getAbsolutePath('clases/error/validatorManagerProducts.js'));
 
     //------>GetProductosAll<------
     const GetProductosAll = (request, response) => {

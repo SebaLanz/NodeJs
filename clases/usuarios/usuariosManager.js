@@ -1,9 +1,10 @@
 const fs = require('fs');
 const path = require('path');
-const usersData = require('./usuarios.js');
-const { validatorByAll, sendErrorResponse, validatorById, validatorStatusActive, validatorStatusInactive } = require('../error/validatorManagerProducts.js');
-const { RegEx } = require('../regEx/expresionesRegulares.js');
-const encriptador = new RegEx();
+const utils = require('../../utils.js');
+const usersData = require(utils.getAbsolutePath('clases/usuarios/usuarios.js'));
+const { validatorByAll, validatorById, validatorStatusActive, validatorStatusInactive } = require(utils.getAbsolutePath('clases/error/validatorManagerProducts.js'));
+const { RegEx } = require(utils.getAbsolutePath('clases/regEx/expresionesRegulares.js'));
+//const encriptador = new RegEx();
 
 class Usuario { 
     constructor(username, password, mail, name, surname) {
