@@ -1,10 +1,10 @@
-const lastUserId = 15;
+const lastUserId = 20;
 
 const usuarios = [
 {
   "id_usuario": 1,
-  "username": "usuario1 - modificado2212",
-  "password": "$2b$10$cetfmD9fXwVXhLnNHgeqreYL4I08F0npvF.yepfHCJ5ykZPU05uUS",
+  "username": "usuario1 - modificado22122",
+  "password": "$2b$10$MCHHgwTEOG1eqbAVIKSNXubyAFLQVMpNBa36U0CiKRGxIsCcpvKa.",
   "mail": "usuario1@example.com modificado221",
   "name": "Juan modificado1",
   "surname": "Pérez modificado1",
@@ -221,12 +221,7 @@ const usuarios = [
   "telephone": "999-999-9999",
   "status": true
 }
-];
-
-
-          module.exports = 
-          {
-   usuarios,
-  
-                lastUserId
-};
+]; 
+module.exports = { 
+usuarios,
+lastUserId};

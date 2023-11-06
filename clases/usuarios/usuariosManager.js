@@ -76,12 +76,8 @@ class Usuario {
             }
           }
           const lastUserId = usersData.lastUserId;
-          console.log(lastUserId);
           const formattedUsersArray = usersData.usuarios.map(usuarios => JSON.stringify(usuarios, null, 2)).join(',\n');
-          const formattedUsuarios = `const lastUserId = ${lastUserId};\n\nconst usuarios = [\n${formattedUsersArray}\n];\n\n
-          module.exports = 
-          {\n   usuarios,\n  
-                lastUserId\n};`;
+          const formattedUsuarios = `const lastUserId = ${lastUserId};\n\nconst usuarios = [\n${formattedUsersArray}\n]; \nmodule.exports = { \nusuarios,\nlastUserId};`;
           const filePath = path.join(__dirname, '../usuarios/usuarios.js');
           fs.writeFile(filePath, formattedUsuarios, (err) => {
             if (err) {
