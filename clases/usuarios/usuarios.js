@@ -1,15 +1,15 @@
-const lastUserId = undefined;
+const lastUserId = 15;
 
 const usuarios = [
 {
   "id_usuario": 1,
-  "username": "usuario1 - modificado2",
-  "password": "ClaveModificada2!3",
-  "mail": "usuario1@example.com modificado",
-  "name": "Juan modificado",
-  "surname": "Pérez modificado",
-  "city": "Ciudad A modificado",
-  "telephone": "123-456-7890 modificado",
+  "username": "usuario1 - modificado2212",
+  "password": "$2b$10$cetfmD9fXwVXhLnNHgeqreYL4I08F0npvF.yepfHCJ5ykZPU05uUS",
+  "mail": "usuario1@example.com modificado221",
+  "name": "Juan modificado1",
+  "surname": "Pérez modificado1",
+  "city": "Ciudad A modificado1",
+  "telephone": "123-456-7890 modificado1",
   "status": false
 },
 {

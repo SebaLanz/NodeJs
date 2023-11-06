@@ -1,18 +1,25 @@
-const bcrypt = require('bcrypt');// Función para codificar una contraseña (ejemplo usando la biblioteca "bcrypt")
+const bcrypt = require('bcrypt');
 
 class RegEx {
-    // Expresión regular para validar contraseñas: al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número.
-     
-    passwordRegex = /^(.{8})$/;
-    hashPassword(password) {
-        const saltRounds = 10;
-        return bcrypt.hash(password, saltRounds);// encripto
+  constructor() {
+    this.passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  }
+
+  validatePassword(password) {
+    return this.passwordRegex.test(password);
+  }
+
+  async encryptPassword(password) {
+    if (!this.validatePassword(password)) {
+      throw new Error('La clave no cumple con los requisitos.');
     }
-    
-    validatePassword(password) {
-        
-        return this.passwordRegex.test(password); //true o false
-    }
+
+    // Generar un hash de la contraseña utilizando bcrypt
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    return hashedPassword;
+  }
 }
 
 module.exports = RegEx;
