@@ -50,7 +50,7 @@ app.get('/api/users/:id', (request, response) => {
     response.json(usuario);
   }
 });
-
+app.put('/api/users/:id', users.updateUserById);
 
 
 // Iniciar el servidor

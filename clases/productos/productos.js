@@ -1,7 +1,7 @@
-const lastProductId = 26;
+const lastProductId = 27;
 
 const productos = [
-{
+  {
   "id_producto": 1,
   "title": "Zapatos elegantes",
   "description": "Zapatos de cuero elegantes para ocasiones especiales.",
@@ -47,14 +47,14 @@ const productos = [
 },
 {
   "id_producto": 5,
-  "title": "Auriculares Bluetooth",
-  "description": "Auriculares inalámbricos con cancelación de ruido para una experiencia de sonido inmersiva.",
-  "price": 79.99,
-  "thumbnail": "imagen5.jpg",
+  "title": "title22",
+  "description": "Juego de sartenes antiadherentes de alta calidad para cocinar sin problemas22.",
+  "price": 22,
+  "thumbnail": "imagen22.jpg",
   "code": "P005",
-  "stock": 90,
+  "stock": 222,
   "status": true,
-  "category": "accesorios"
+  "category": "cocina"
 },
 {
   "id_producto": 6,
@@ -209,13 +209,19 @@ const productos = [
   "stock": 90,
   "status": true,
   "category": "accesorios"
-}
-];
-
-
-        module.exports = 
-        {
-   productos,
-  
-              lastProductId
-};
+},
+{
+  "id_producto": 27,
+  "title": "Juego de sartenes antiadherentes2",
+  "description": "Juego de sartenes antiadherentes de alta calidad para cocinar sin problemas2.",
+  "price": 69.99,
+  "thumbnail": "imagen20.jpg",
+  "code": "P02313232s",
+  "stock": 505,
+  "status": true,
+  "category": "cocina"
+}];
+        module.exports = {
+        productos,
+        lastProductId
+        };
