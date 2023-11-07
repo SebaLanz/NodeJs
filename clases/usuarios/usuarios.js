@@ -1,7 +1,7 @@
-const lastUserId = 27;
+const lastUserId = 28;
 
 const usuarios = [
-{
+  {
   "id_usuario": 1,
   "username": "usuario1 - modificado1",
   "password": "$2b$10$MCHHgwTEOG1eqbAVIKSNXubyAFLQVMpNBa36U0CiKRGxIsCcpvKa.",
@@ -179,7 +179,7 @@ const usuarios = [
 },
 {
   "id_usuario": 20,
-  "username": "usuario1 - modificado24 ",
+  "username": "usuario1 - modificado20",
   "password": "clave20",
   "mail": "usuario1@example.com modificado221",
   "name": "Juan modificado1",
@@ -187,8 +187,19 @@ const usuarios = [
   "city": "Ciudad A modificado1",
   "telephone": "123-456-7890 modificado12",
   "status": true
-}
-]; 
-module.exports = { 
-usuarios,
-lastUserId};
+},
+{
+  "id_usuario": 28,
+  "username": "usuario1 - modificado123",
+  "password": "$2b$10$MCHHgwTEOG1eqbAVIKSNXubyAFLQVMpNBa36U0CiKRGxIsCcpvKa.",
+  "mail": "usuario1@example.com modificado1",
+  "name": "Juan modificado1",
+  "surname": "Pérez modificado1",
+  "city": "Ciudad A modificado1",
+  "telephone": "123-456-7890 modificado1",
+  "status": true
+}];
+            module.exports = {
+            usuarios,
+            lastUserId
+            };

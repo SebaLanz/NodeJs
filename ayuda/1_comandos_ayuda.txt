@@ -47,3 +47,6 @@ THUNDER CLIENT
 npm install -g nodemon
 nodemon app.js
 Set-ExecutionPolicy RemoteSigned -Scope Process  (si falta permiso)
+
+11) handlebars
+npm install express express-handlebars

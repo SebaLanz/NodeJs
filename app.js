@@ -1,12 +1,20 @@
-const utils = require('./utils');
 const express = require('express');
+const handlebars = require('express-handlebars');
+const utils = require('./utils');
 const app = express();
 const port = 8080;
-app.use(express.json());
-app.use(express.urlencoded({extends:true}));
 const productosControlador = require(utils.getAbsolutePath('./clases/productos/productosManager.js')); // Genero ruta absoluta.
 const { Usuario } = require(utils.getAbsolutePath('./clases/usuarios/usuariosManager.js'));
 const users = new Usuario();
+app.use(express.json());
+app.use(express.urlencoded({extends:true}));
+
+
+const absolutePathToViews = utils.getAbsolutePath('./views');
+//const absolutePathToPublic = utils.getAbsolutePath('./public');
+
+app.engine('handlebars', handlebars.engine());
+app.set('views',absolutePathToViews);
 
 // Middleware para establecer el encabezado Content-Type en application/json
 app.use((request, response, next) => {
@@ -18,9 +26,10 @@ app.use((request, response, next) => {
 // Ruta Raiz
 app.get('/', (req, res) => {
   if (req.url === "/") {
-    res.statusCode = 200; //OK
     res.setHeader('Content-Type', 'text/html', 'charset=utf-8') //seteo header para que me devuelta un texto plano y utf-8 (caracteres en esp.)
-    res.send('Bienvenido a la prueba de Express con contento de desarrollar una api2');
+
+    let testUser = {name: 'pepe', apellido: 'pompin'}
+    res.render('index.handlebars', testUser);
   }
 });
 

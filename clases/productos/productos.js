@@ -1,7 +1,7 @@
-const lastProductId = 27;
+const lastProductId = 28;
 
 const productos = [
-{
+  {
   "id_producto": 1,
   "title": "Zapatos elegantes",
   "description": "Zapatos de cuero elegantes para ocasiones especiales.",
@@ -220,13 +220,19 @@ const productos = [
   "stock": 505,
   "status": true,
   "category": "cocina"
-}
-];
-
-
-        module.exports = 
-        {
-   productos,
-  
-              lastProductId
-};
+},
+{
+  "id_producto": 28,
+  "title": "Juego de sartenes antiadherentes2",
+  "description": "Juego de sartenes antiadherentes de alta calidad para cocinar sin problemas2.",
+  "price": 69.99,
+  "thumbnail": "imagen20.jpg",
+  "code": "20231107",
+  "stock": 505,
+  "status": true,
+  "category": "cocina"
+}];
+        module.exports = {
+        productos,
+        lastProductId
+        };
