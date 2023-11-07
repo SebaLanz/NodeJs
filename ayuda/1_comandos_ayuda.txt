@@ -43,3 +43,7 @@ REST CLIENT --> EXTENSIÓN PARA PROBAR LOS METODOS GET.PUT.DELETE,ETC
 THUNDER CLIENT
 
 
+10) Nodemon -->
+npm install -g nodemon
+nodemon app.js
+Set-ExecutionPolicy RemoteSigned -Scope Process  (si falta permiso)

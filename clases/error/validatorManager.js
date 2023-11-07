@@ -1,7 +1,6 @@
     
     const statusCodes = require('./statusCodes');
     const fs = require('fs'); //instancio filesystem
-    let msg = '';
     
     
     
@@ -52,12 +51,10 @@
         return sendErrorResponse(response, statusCodes.NOT_FOUND, `No se encontraron ${tipo} inactivos`);
       }
     }
-    const validatorUpdate = (response, boolean, productId, tipo) => {
+    const validatorUpdate = (response, true_ok, productId, tipo) => {
       //En tipo me traigo un varchar del tipo de validación, puede contener 'producto, 'usuario', etc, para realizar un msg dinámico.
-      let msg ='';
-      if (boolean) {
-        msg = `${tipo} actualizado`;
-        return sendErrorResponse(response, statusCodes.OK, msg);
+      if (true_ok) {
+        return sendErrorResponse(response, statusCodes.OK, `${tipo} actualizado`);
       }
       else if (isNaN(productId)) {
         return sendErrorResponse(response, statusCodes.BAD_REQUEST, 'Ingrese un valor númerico'); 

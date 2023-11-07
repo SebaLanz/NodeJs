@@ -8,6 +8,12 @@ const productosControlador = require(utils.getAbsolutePath('./clases/productos/p
 const { Usuario } = require(utils.getAbsolutePath('./clases/usuarios/usuariosManager.js'));
 const users = new Usuario();
 
+// Middleware para establecer el encabezado Content-Type en application/json
+app.use((request, response, next) => {
+  response.setHeader('Content-Type', 'application/json'); // Configura el Content-Type como application/json
+  next();
+});
+
 
 // Ruta Raiz
 app.get('/', (req, res) => {
@@ -46,6 +52,9 @@ app.get('/api/users/:id', (request, response) => {
 app.put('/api/users/:id', users.updateUserById);
 app.post('/api/users/', users.createUser);
 app.delete('/api/users/delete/:id', users.deleteUser);
+
+
+
 // Iniciar el servidor
 app.listen(port, () => {
   console.log(`Servidor Express escuchando en el puerto ${port}`);

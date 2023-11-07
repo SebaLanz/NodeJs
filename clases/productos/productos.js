@@ -47,12 +47,12 @@ const productos = [
 },
 {
   "id_producto": 5,
-  "title": "title222222",
-  "description": "Juego de sartenes antiadherentes de alta calidad para cocinar sin problemas22.",
-  "price": 22,
+  "title": "title5",
+  "description": "Juego de sartenes .",
+  "price": 5,
   "thumbnail": "imagen22.jpg",
   "code": "P005",
-  "stock": 222,
+  "stock": 5,
   "status": true,
   "category": "cocina"
 },

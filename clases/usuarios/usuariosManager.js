@@ -124,21 +124,22 @@ class Usuario {
     deleteUser = (request, response) => {
         const userId = +request.params.id;
         const index = usersData.usuarios.findIndex((usuario) => usuario.id_usuario === userId);
-        console.log('index' + index);
-        if(validatorId(userId, response)){    
             if (index !== -1) {
-                const deletedUser = usersData.usuarios.splice(index, 1)[0]; // elimino el producto
-                const updatedUsersArray = usersData.usuarios.map(usuario => JSON.stringify(usuario, null, 2)).join(',\n');
-                const formattedUsers = `const lastUserId = ${usersData.lastUserId};\n\nconst usuarios = [\n${updatedUsersArray}\n];module.exports = {\n  usuarios,\n  lastUserId\n};`;
-                const filePath = path.join(__dirname, '../usuarios/usuarios.js');
-                fs.writeFile(filePath, formattedUsers, (err) => {
-                if (err) {
-                    return response.status(500).json({ error: 'Error al eliminar el usuario' });
-                }
-                response.status(200).json({ message: `Usuario con ID: ${userId} eliminado`});
-                });
+                    const deletedUser = usersData.usuarios.splice(index, 1)[0]; // elimino el producto
+                    const updatedUsersArray = usersData.usuarios.map(usuario => JSON.stringify(usuario, null, 2)).join(',\n');
+                    const formattedUsers = `const lastUserId = ${usersData.lastUserId};\n\nconst usuarios = [\n${updatedUsersArray}\n];module.exports = {\n  usuarios,\n  lastUserId\n};`;
+                    const filePath = path.join(__dirname, '../usuarios/usuarios.js');
+                    fs.writeFile(filePath, formattedUsers, (err) => {
+                    if (err) {
+                        return response.status(500).json({ error: 'Error al eliminar el usuario' });
+                    }
+                        return response.status(200).json({ message: `El Usuario con ID: ${userId} eliminado`});
+                    });
+                
+            }else{
+                validatorId(userId, response);
             }
-        };
+        
     }
 }
 
