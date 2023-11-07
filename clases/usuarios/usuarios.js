@@ -1,11 +1,11 @@
-const lastUserId = 20;
+const lastUserId = 24;
 
 const usuarios = [
-{
+  {
   "id_usuario": 1,
-  "username": "usuario1 - modificado22122",
+  "username": "usuario1 - modificado1",
   "password": "$2b$10$MCHHgwTEOG1eqbAVIKSNXubyAFLQVMpNBa36U0CiKRGxIsCcpvKa.",
-  "mail": "usuario1@example.com modificado221",
+  "mail": "usuario1@example.com modificado1",
   "name": "Juan modificado1",
   "surname": "Pérez modificado1",
   "city": "Ciudad A modificado1",
@@ -167,17 +167,6 @@ const usuarios = [
   "status": true
 },
 {
-  "id_usuario": 16,
-  "username": "usuario16",
-  "password": "clave16",
-  "mail": "usuario16@example.com",
-  "name": "Elena",
-  "surname": "Martínez",
-  "city": "Ciudad A",
-  "telephone": "444-444-4444",
-  "status": true
-},
-{
   "id_usuario": 17,
   "username": "usuario17",
   "password": "clave17",
@@ -186,28 +175,6 @@ const usuarios = [
   "surname": "Fernández",
   "city": "Ciudad B",
   "telephone": "333-333-3333",
-  "status": true
-},
-{
-  "id_usuario": 18,
-  "username": "usuario18",
-  "password": "clave18",
-  "mail": "usuario18@example.com",
-  "name": "Eva",
-  "surname": "Sánchez",
-  "city": "Ciudad C",
-  "telephone": "222-222-2222",
-  "status": true
-},
-{
-  "id_usuario": 19,
-  "username": "usuario19",
-  "password": "clave19",
-  "mail": "usuario19@example.com",
-  "name": "José",
-  "surname": "Ramirez",
-  "city": "Ciudad A",
-  "telephone": "888-888-8888",
   "status": true
 },
 {
@@ -220,8 +187,30 @@ const usuarios = [
   "city": "Ciudad B",
   "telephone": "999-999-9999",
   "status": true
-}
-]; 
-module.exports = { 
-usuarios,
-lastUserId};
+},
+{
+  "id_usuario": 23,
+  "username": "usuario1 - modificado123",
+  "password": "$2b$10$MCHHgwTEOG1eqbAVIKSNXubyAFLQVMpNBa36U0CiKRGxIsCcpvKa.",
+  "mail": "usuario1@example.com modificado1",
+  "name": "Juan modificado1",
+  "surname": "Pérez modificado1",
+  "city": "Ciudad A modificado1",
+  "telephone": "123-456-7890 modificado1",
+  "status": true
+},
+{
+  "id_usuario": 24,
+  "username": "ys3",
+  "password": "$2b$10$MCHHgwTEOG1eqbAVIKSNXubyAFLQVMpNBa36U0CiKRGxIsCcpvKa.",
+  "mail": "usuario1@example.com modificado1",
+  "name": "Juan modificado1",
+  "surname": "Pérez modificado1",
+  "city": "Ciudad A modificado1",
+  "telephone": "123-456-7890 modificado1",
+  "status": true
+}];
+            module.exports = {
+            usuarios,
+            lastUserId
+            };

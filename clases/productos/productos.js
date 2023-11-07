@@ -1,7 +1,7 @@
 const lastProductId = 27;
 
 const productos = [
-  {
+{
   "id_producto": 1,
   "title": "Zapatos elegantes",
   "description": "Zapatos de cuero elegantes para ocasiones especiales.",
@@ -47,7 +47,7 @@ const productos = [
 },
 {
   "id_producto": 5,
-  "title": "title22",
+  "title": "title222222",
   "description": "Juego de sartenes antiadherentes de alta calidad para cocinar sin problemas22.",
   "price": 22,
   "thumbnail": "imagen22.jpg",
@@ -220,8 +220,13 @@ const productos = [
   "stock": 505,
   "status": true,
   "category": "cocina"
-}];
-        module.exports = {
-        productos,
-        lastProductId
-        };
+}
+];
+
+
+        module.exports = 
+        {
+   productos,
+  
+              lastProductId
+};

@@ -68,6 +68,16 @@
       else{ return sendErrorResponse(response, statusCodes.BAD_REQUEST, `${tipo} no encontrado, no se pudo actualizar.`); 
       }
     }
+    const validatorId = (id_objetoAVerificar, response) => { //Solo recibo id, tengo que modificar para borrar el anterior.
+        if (isNaN(id_objetoAVerificar)) {
+            sendErrorResponse(response, statusCodes.BAD_REQUEST, `El ID debe ser numérico`);
+          } else if (id_objetoAVerificar <= 0) {
+            sendErrorResponse(response, statusCodes.BAD_REQUEST, `El ID número: ${id_objetoAVerificar} debe ser mayor a 0`);
+          } else {
+            sendErrorResponse(response, statusCodes.NOT_FOUND, `El ID número: ${id_objetoAVerificar} no existe`);
+        }
+        
+    };
 
 module.exports = {
     sendErrorResponse,
@@ -76,4 +86,5 @@ module.exports = {
     validatorStatusActive,
     validatorStatusInactive,
     validatorUpdate,
+    validatorId
 };

@@ -91,7 +91,7 @@ const { validatorById, validatorByAll, validatorStatusActive, validatorStatusIna
       // Verifica si lastProductId es un número // en caso de que haya un error y la variable se modifique y pase a ser un valor diferente a un número, gen
       //ero un error 500 por parte del serv.
       if (typeof lastProductId !== 'number') {
-        return response.status(500).json({ error: 'lastProductId no es un número' });
+        return response.status(500).json({ error: `${lastProductId} no es un número` });
       }
       const newProductId = lastProductId + 1; //Genero el id para el nuevo producto.
       newProduct.id_producto = newProductId; // lo asigno al nuevo array del producto nuevo. Podría hacerlo sin crear la variable, pero para entender mejor la cree.

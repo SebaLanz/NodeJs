@@ -4,16 +4,9 @@ const app = express();
 const port = 8080;
 app.use(express.json());
 app.use(express.urlencoded({extends:true}));
-
 const productosControlador = require(utils.getAbsolutePath('./clases/productos/productosManager.js')); // Genero ruta absoluta.
 const { Usuario } = require(utils.getAbsolutePath('./clases/usuarios/usuariosManager.js'));
 const users = new Usuario();
-
-
-
-
-
-
 
 
 // Ruta Raiz
@@ -36,7 +29,7 @@ app.get('/api/products/:id', (request, response) => {
   }
 });
 app.put('/api/products/:id', productosControlador.updateProductById);
-app.post('/api/', productosControlador.createProduct);
+app.post('/api/products/', productosControlador.createProduct);
 app.delete('/api/products/delete/:id', productosControlador.deleteProduct);
 //Fin Productos ---!
 
@@ -51,8 +44,8 @@ app.get('/api/users/:id', (request, response) => {
   }
 });
 app.put('/api/users/:id', users.updateUserById);
-
-
+app.post('/api/users/', users.createUser);
+app.delete('/api/users/delete/:id', users.deleteUser);
 // Iniciar el servidor
 app.listen(port, () => {
   console.log(`Servidor Express escuchando en el puerto ${port}`);
