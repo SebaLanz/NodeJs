@@ -11,7 +11,8 @@ router.get('/', (request, response) => {
 router.get('/api/products', async (request, response) => {
   try {
     const productos = await productosManager.GetProductosAll(request, response);
-    response.status(200).render('products', { products: productos });
+    response.status(200).render('products', { products: productos }); // .render si quiero obtener el renderizado en la página
+
   } catch (error) {
     console.error(error);
     response.status(500).json({ error: 'Error al obtener los productos' });
@@ -19,3 +20,4 @@ router.get('/api/products', async (request, response) => {
 });
 
 module.exports = router;
+
