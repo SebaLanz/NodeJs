@@ -1,4 +1,4 @@
-const lastProductId = 29;
+const lastProductId = 30;
 
 const productos = [
 {
@@ -77,17 +77,6 @@ const productos = [
   "stock": 80,
   "status": true,
   "category": "ropa"
-},
-{
-  "id_producto": 8,
-  "title": "Gafas de sol de moda",
-  "description": "Gafas de sol con estilo para proteger tus ojos del sol.",
-  "price": 39.95,
-  "thumbnail": "imagen8.jpg",
-  "code": "P008",
-  "stock": 110,
-  "status": true,
-  "category": "accesorios"
 },
 {
   "id_producto": 9,
@@ -228,6 +217,17 @@ const productos = [
   "price": 69.99,
   "thumbnail": "imagen20.jpg",
   "code": "20231107",
+  "stock": 505,
+  "status": true,
+  "category": "cocina"
+},
+{
+  "id_producto": 30,
+  "title": "producto creado",
+  "description": "Juego de sartenes antiadherentes de alta calidad para cocinar sin problemas2.",
+  "price": 69.99,
+  "thumbnail": "imagen20.jpg",
+  "code": "202311092",
   "stock": 505,
   "status": true,
   "category": "cocina"

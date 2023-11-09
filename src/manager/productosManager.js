@@ -63,7 +63,7 @@ class Producto {
         module.exports = 
         {\n   productos,\n  
               lastProductId\n};`;
-        const filePath = path.join(__dirname, '../productos/productos.js');
+        const filePath = path.join(__dirname, '../../clases/productos/productos.js');
         fs.writeFile(filePath, formattedProductos, (err) => {
           if (err) {
             return response.status(500).json({ error: 'Error al guardar los productos' });
@@ -105,7 +105,7 @@ class Producto {
         lastProductId
         };`;
       
-      const filePath = path.join(__dirname, '../productos/productos.js');// Guardo los cambios en el archivo productos.js
+      const filePath = path.join(__dirname, '../../clases/productos/productos.js');// Guardo los cambios en el archivo productos.js
       fs.writeFile(filePath, formattedProductos, (err) => {
         if (err) {
           console.error(err);
@@ -128,7 +128,7 @@ class Producto {
         {productos,\n  
           lastProductId\n};`;
               
-        const filePath = path.join(__dirname, '../productos/productos.js');
+        const filePath = path.join(__dirname, '../../clases/productos/productos.js');
         fs.writeFile(filePath, formattedProductos, (err) => {
           if (err) {
             return response.status(500).json({ error: 'Error al guardar los productos' });
