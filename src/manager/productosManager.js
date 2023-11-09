@@ -6,13 +6,24 @@ const { validatorById, validatorByAll, validatorStatusActive, validatorStatusIna
 
 class Producto { 
     //------>GetProductosAll<------
+    // GetProductosAll = (request, response) => {
+    //     const limit = request.query.limit || productos.productos.length;
+    //     if (validatorByAll(limit, response)) {
+    //         // validatorByAll(limit, response) = True -> happy path
+    //         const productosLimitados = productos.productos.slice(0, parseInt(limit, 10));
+    //         response.json(productosLimitados);
+    //     }
+    // };
     GetProductosAll = (request, response) => {
+      return new Promise((resolve, reject) => {
         const limit = request.query.limit || productos.productos.length;
         if (validatorByAll(limit, response)) {
-            // validatorByAll(limit, response) = True -> happy path
-            const productosLimitados = productos.productos.slice(0, parseInt(limit, 10));
-            response.json(productosLimitados);
+          const productosLimitados = productos.productos.slice(0, parseInt(limit, 10));
+          resolve(productosLimitados);
+        } else {
+          reject('Error en la validación de productos');
         }
+      });
     };
     //------>GetProductosById<------
     GetProductosById = (productId, response) => {

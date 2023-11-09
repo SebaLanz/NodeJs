@@ -1,7 +1,7 @@
-const lastProductId = 30;
+const lastProductId = 31;
 
 const productos = [
-{
+  {
   "id_producto": 1,
   "title": "producto 1",
   "description": "Juego de sartenes .",
@@ -231,11 +231,19 @@ const productos = [
   "stock": 505,
   "status": true,
   "category": "cocina"
-}
-];
-
-        module.exports =
-        {productos,
-  
-          lastProductId
-};
+},
+{
+  "id_producto": 31,
+  "title": "producto creado",
+  "description": "Juego de sartenes antiadherentes de alta calidad para cocinar sin problemas2.",
+  "price": 69.99,
+  "thumbnail": "imagen20.jpg",
+  "code": "2023110921",
+  "stock": 505,
+  "status": true,
+  "category": "cocina"
+}];
+        module.exports = {
+        productos,
+        lastProductId
+        };

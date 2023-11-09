@@ -23,11 +23,6 @@ app.set('views',absolutePathToViews);
 
 
 //Rutas
-// app.get('/', (req, res) => {
-//   if (req.url === "/") {
-//     res.setHeader('Content-Type', 'text/html', 'charset=utf-8') //seteo header para que me devuelta un texto plano y utf-8 (caracteres en esp.)
-//   }
-// })
 app.use('/', vistasRouter);
 app.use('/', usuariosRoutes);
 app.use('/', productosRoutes);
