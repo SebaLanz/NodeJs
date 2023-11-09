@@ -7,13 +7,13 @@ const RegEx = require(utils.getAbsolutePath('clases/regEx/expresionesRegulares.j
 const encriptador = new RegEx();
 
 class Usuario { 
-    constructor(username, password, mail, name, surname) {
-        this.username = username;
-        this.password = password;
-        this.mail = mail;
-        this.name = name;
-        this.surname = surname;
-    }
+    // constructor(username, password, mail, name, surname) {
+    //     this.username = username;
+    //     this.password = password;
+    //     this.mail = mail;
+    //     this.name = name;
+    //     this.surname = surname;
+    // }
 
     getUsuariosAll(request, response) {
         const limit = request.query.limit || usersData.usuarios.length;
@@ -76,7 +76,7 @@ class Usuario {
             const lastUserId = usersData.lastUserId;
             const formattedUsersArray = usersData.usuarios.map(usuarios => JSON.stringify(usuarios, null, 2)).join(',\n');
             const formattedUsuarios = `const lastUserId = ${lastUserId};\n\nconst usuarios = [\n${formattedUsersArray}\n]; \nmodule.exports = { \nusuarios,\nlastUserId};`;
-            const filePath = path.join(__dirname, '../usuarios/usuarios.js');
+            const filePath = path.join(__dirname, '../../clases/usuarios/usuarios.js');
             fs.writeFile(filePath, formattedUsuarios, (err) => {
                 if (err) {
                     return response.status(500).json({ error: 'Error al guardar el usuario' });
@@ -106,14 +106,14 @@ class Usuario {
         }
         const newUserId = lastUserId + 1;
         newUser.id_usuario = newUserId;
-        const userWithId = { id_usuario: newUserId, ...newUser };
+        const userWithId = { id_usuario: newUserId, ...newUser, status: true };
         usersData.usuarios.push(userWithId);
         const formattedUsuarios = `const lastUserId = ${newUserId};\n\nconst usuarios = [\n  ${usersData.usuarios.map(usuario => JSON.stringify(usuario, null, 2)).join(',\n')}];
             module.exports = {
             usuarios,
             lastUserId
             };`;
-        const filePath = path.join(__dirname, '../usuarios/usuarios.js');
+        const filePath = path.join(__dirname, '../../clases/usuarios/usuarios.js');
         fs.writeFile(filePath, formattedUsuarios, (err) => {
             if (err) {
             return response.status(500).json({ error: 'Error al crear el usuario' });
@@ -128,7 +128,7 @@ class Usuario {
                     const deletedUser = usersData.usuarios.splice(index, 1)[0]; // elimino el producto
                     const updatedUsersArray = usersData.usuarios.map(usuario => JSON.stringify(usuario, null, 2)).join(',\n');
                     const formattedUsers = `const lastUserId = ${usersData.lastUserId};\n\nconst usuarios = [\n${updatedUsersArray}\n];module.exports = {\n  usuarios,\n  lastUserId\n};`;
-                    const filePath = path.join(__dirname, '../usuarios/usuarios.js');
+                    const filePath = path.join(__dirname, '../../clases/usuarios/usuarios.js');
                     fs.writeFile(filePath, formattedUsers, (err) => {
                     if (err) {
                         return response.status(500).json({ error: 'Error al eliminar el usuario' });

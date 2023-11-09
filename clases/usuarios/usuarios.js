@@ -1,7 +1,7 @@
-const lastUserId = 28;
+const lastUserId = 31;
 
 const usuarios = [
-  {
+{
   "id_usuario": 1,
   "username": "usuario1 - modificado1",
   "password": "$2b$10$MCHHgwTEOG1eqbAVIKSNXubyAFLQVMpNBa36U0CiKRGxIsCcpvKa.",
@@ -179,13 +179,13 @@ const usuarios = [
 },
 {
   "id_usuario": 20,
-  "username": "usuario1 - modificado20",
+  "username": "usr20",
   "password": "clave20",
-  "mail": "usuario1@example.com modificado221",
-  "name": "Juan modificado1",
-  "surname": "Pérez modificado1",
-  "city": "Ciudad A modificado1",
-  "telephone": "123-456-7890 modificado12",
+  "mail": "usuario20@example.com",
+  "name": "Juan",
+  "surname": "Pérez",
+  "city": "Ciudad A",
+  "telephone": "123-456-7890",
   "status": true
 },
 {
@@ -198,8 +198,19 @@ const usuarios = [
   "city": "Ciudad A modificado1",
   "telephone": "123-456-7890 modificado1",
   "status": true
-}];
-            module.exports = {
-            usuarios,
-            lastUserId
-            };
+},
+{
+  "id_usuario": 31,
+  "username": "usuario09112023/3",
+  "password": "$2b$10$MCHHgwTEOG1eqbAVIKSNXubyAFLQVMpNBa36U0CiKRGxIsCcpvKa.",
+  "mail": "usuario1@example.com",
+  "name": "Juan ",
+  "surname": "Pérez ",
+  "city": "Ciudad A ",
+  "telephone": "123-456-7890 ",
+  "status": true
+}
+];module.exports = {
+  usuarios,
+  lastUserId
+};

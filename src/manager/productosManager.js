@@ -4,8 +4,9 @@ const utils = require('../../utils.js');
 const productos = require(utils.getAbsolutePath('clases/productos/productos.js'));
 const { validatorById, validatorByAll, validatorStatusActive, validatorStatusInactive, validatorUpdate } = require(utils.getAbsolutePath('clases/error/validatorManager.js'));
 
+class Producto { 
     //------>GetProductosAll<------
-    const GetProductosAll = (request, response) => {
+    GetProductosAll = (request, response) => {
         const limit = request.query.limit || productos.productos.length;
         if (validatorByAll(limit, response)) {
             // validatorByAll(limit, response) = True -> happy path
@@ -14,7 +15,7 @@ const { validatorById, validatorByAll, validatorStatusActive, validatorStatusIna
         }
     };
     //------>GetProductosById<------
-    const GetProductosById = (productId, response) => {
+    GetProductosById = (productId, response) => {
       productId = +productId; // Parsea el productId a número si es necesario
       const producto = productos.productos.find((producto) => producto.id_producto === productId);
       if (!producto) {
@@ -26,7 +27,7 @@ const { validatorById, validatorByAll, validatorStatusActive, validatorStatusIna
     };
     
     //------>GetProductosActives<------
-    const GetProductosActives = (request, response) => {
+    GetProductosActives = (request, response) => {
         const tipo = 'productos';
         const producto = productos.productos.filter((producto) => producto.status === true);
         if(validatorStatusActive(producto, response, tipo)){
@@ -34,7 +35,7 @@ const { validatorById, validatorByAll, validatorStatusActive, validatorStatusIna
         }
     };
     //------>GetProductosInactives<------
-    const GetProductosInactives = (request, response) => {
+    GetProductosInactives = (request, response) => {
       const tipo = 'productos';
         const producto = productos.productos.filter((producto) => producto.status === false);
         if(validatorStatusInactive(producto, response, tipo)){
@@ -44,7 +45,7 @@ const { validatorById, validatorByAll, validatorStatusActive, validatorStatusIna
     //FIN GET
     //INICIO UPDATE
     //------->updateProductById<---------
-    const updateProductById = (request, response) => {
+    updateProductById = (request, response) => {
       const tipo = 'Producto';
       const productId = +request.params.id;
       const updatedProduct = request.body;
@@ -77,7 +78,7 @@ const { validatorById, validatorByAll, validatorStatusActive, validatorStatusIna
     
     //FIN UPDATE
     //INICIO Create
-    const createProduct = (request, response) => {
+    createProduct = (request, response) => {
       const newProduct = request.body;//DATOS DE LA PETICIÓN
       if (!newProduct.title || !newProduct.description || !newProduct.price || !newProduct.category || !newProduct.stock || !newProduct.code) {
         return response.status(400).json({ error: 'Faltan datos obligatorios' });
@@ -116,7 +117,7 @@ const { validatorById, validatorByAll, validatorStatusActive, validatorStatusIna
     //FIN CREATE
     //INICIO DELETE
 
-    const deleteProduct = (request, response) => {
+    deleteProduct = (request, response) => {
       const productId = +request.params.id;
       const index = productos.productos.findIndex((producto) => producto.id_producto === productId);
       if (index !== -1) {
@@ -139,18 +140,12 @@ const { validatorById, validatorByAll, validatorStatusActive, validatorStatusIna
       }
     };
     
-    
+  }
     
     
 
     //FIN DELETE.
 
     module.exports = {
-        GetProductosAll,
-        GetProductosById,
-        GetProductosActives,
-        GetProductosInactives,
-        updateProductById,
-        createProduct,
-        deleteProduct
+        Producto
     };
