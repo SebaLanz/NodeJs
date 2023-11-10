@@ -4,32 +4,34 @@
   <meta charset="utf-8">
   <title>Bienvenido</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="assets/css/main.css">
-  <!-- Enlaces a los estilos de Font Awesome -->
-  <link href="assets/fontawesome/css/fontawesome.css" rel="stylesheet">
-  <link href="assets/fontawesome/css/brands.css" rel="stylesheet">
-  <link href="assets/fontawesome/css/solid.css" rel="stylesheet">
-  <script src="javascript/menu_hamburguesa.js"></script>
-
-
+  <link rel="stylesheet" href="/assets/css/footer.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/body.css">
+  <link href="/assets/fontawesome/css/fontawesome.css" rel="stylesheet">
+  <link href="/assets/fontawesome/css/brands.css" rel="stylesheet">
+  <link href="/assets/fontawesome/css/solid.css" rel="stylesheet">
+  <script src="/javascript/menu_hamburguesa.js"></script>
 </head>
-<body>
-  <nav>
+<body class="body_main">
+  <nav class="menu_nav">
     <input type="checkbox" id="check">
     <label for="check" class="checkbtn">
       <i class="fas fa-bars"></i>
     </label>
     <label class="logo">NodeProject</label>
-    <ul>
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/api/products">Productos</a></li>
-      <li><a href="/api/users">Usuarios</a></li>
-      <li><a href="#">Carrito</a></li>
-      <li><a href="#">Mis Compras</a></li>
-      <li><a href="#">Perfil</a></li>
+    <ul class="menu_ul">
+      <li class="menu_li"><a href="/">Inicio</a></li>
+      <li class="menu_li"><a href="/api/products">Productos</a></li>
+      <li class="menu_li"><a href="/api/users">Usuarios</a></li>
+      <li class="menu_li"><a href="#">Carrito</a></li>
+      <li class="menu_li"><a href="#">Mis Compras</a></li>
+      <li class="menu_li"><a href="#">Perfil</a></li>
     </ul>
   </nav>
-
+  
     {{{body}}}
+
+    {{> footer}} <!--Exporto el footer a todos las páginas-->
+
 </body>
 </html>

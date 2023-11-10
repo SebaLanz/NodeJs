@@ -8,9 +8,6 @@ router.get('/', (request, response) => {
   response.status(200).render('home');
 });
 
-// En vistasRouter.js
-
-// En vistasRouter.js
 
 router.get('/api/products', (request, response) => {
     let products =  productosManager.GetProductosAll(request, response);
