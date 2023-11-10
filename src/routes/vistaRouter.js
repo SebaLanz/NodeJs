@@ -8,16 +8,23 @@ router.get('/', (request, response) => {
   response.status(200).render('home');
 });
 
+// En vistasRouter.js
+
+// En vistasRouter.js
+
 router.get('/api/products', async (request, response) => {
   try {
-    const productos = await productosManager.GetProductosAll(request, response);
-    response.status(200).render('products', { products: productos }); // .render si quiero obtener el renderizado en la página
-
+      const productos = productosManager.GetProductosAll(request, response);
+      response.status(200).render('products', { products: productos });
   } catch (error) {
-    console.error(error);
-    response.status(500).json({ error: 'Error al obtener los productos' });
+      response.status(500).render({ error: 'Error al obtener los productos' });
   }
 });
+
+
+
+
+
 
 module.exports = router;
 

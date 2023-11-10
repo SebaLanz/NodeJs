@@ -15,16 +15,16 @@ class Producto {
     //     }
     // };
     GetProductosAll = (request, response) => {
-      return new Promise((resolve, reject) => {
-        const limit = request.query.limit || productos.productos.length;
-        if (validatorByAll(limit, response)) {
-          const productosLimitados = productos.productos.slice(0, parseInt(limit, 10));
-          resolve(productosLimitados);
-        } else {
-          reject('Error en la validación de productos');
-        }
-      });
+      const limit = request.query.limit || productos.productos.length;
+      if (validatorByAll(limit, response)) {
+        const productosLimitados = productos.productos.slice(0, parseInt(limit, 10));
+        return productosLimitados;
+      } else {
+        // Puedes manejar el error aquí si es necesario
+        return null;
+      }
     };
+    
     //------>GetProductosById<------
     GetProductosById = (productId, response) => {
       productId = +productId; // Parsea el productId a número si es necesario
