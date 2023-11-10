@@ -12,14 +12,13 @@ router.get('/', (request, response) => {
 
 // En vistasRouter.js
 
-router.get('/api/products', async (request, response) => {
-  try {
-      const productos = productosManager.GetProductosAll(request, response);
-      response.status(200).render('products', { products: productos });
-  } catch (error) {
-      response.status(500).render({ error: 'Error al obtener los productos' });
-  }
-});
+router.get('/api/products', (request, response) => {
+    let products =  productosManager.GetProductosAll(request, response);
+    response.status(200).render('products',{
+        products
+    });
+})
+
 
 
 

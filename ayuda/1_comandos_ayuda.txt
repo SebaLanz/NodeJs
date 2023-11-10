@@ -50,3 +50,5 @@ Set-ExecutionPolicy RemoteSigned -Scope Process  (si falta permiso)
 
 11) handlebars
 npm install express express-handlebars
+
+12)Para iconos, los tuve que descargar y utilizar de forma local.

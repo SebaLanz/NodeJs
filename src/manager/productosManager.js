@@ -6,24 +6,15 @@ const { validatorById, validatorByAll, validatorStatusActive, validatorStatusIna
 
 class Producto { 
     // ------>GetProductosAll<------
-    // GetProductosAll = (request, response) => {
-    //     const limit = request.query.limit || productos.productos.length;
-    //     if (validatorByAll(limit, response)) {
-    //         // validatorByAll(limit, response) = True -> happy path
-    //         const productosLimitados = productos.productos.slice(0, parseInt(limit, 10));
-    //         response.json(productosLimitados);
-    //     }
-    // };
-    GetProductosAll = (request, response) => {
-      const limit = request.query.limit || productos.productos.length;
-      if (validatorByAll(limit, response)) {
-        const productosLimitados = productos.productos.slice(0, parseInt(limit, 10));
-        return productosLimitados;
-      } else {
-        // Puedes manejar el error aquí si es necesario
-        return null;
-      }
-    };
+      GetProductosAll = (request, response) => {
+          const limit = request.query.limit || productos.productos.length;
+          if (validatorByAll(limit, response)) {
+              // validatorByAll(limit, response) = True -> happy path
+              const productosLimitados = productos.productos.slice(0, parseInt(limit, 10));
+              // response.json(productosLimitados); si es necesario devuelvo json
+              return productosLimitados;
+          }
+        }
     
     //------>GetProductosById<------
     GetProductosById = (productId, response) => {
