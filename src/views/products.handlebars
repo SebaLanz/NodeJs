@@ -1,12 +1,26 @@
 
-{{#each products}}
+{{!-- {{#each products}}
     <div class="card">
         <h2>{{title}}</h2>
         <p>{{description}}</p>
         <p>{{price}}</p>
         <!-- faltan agregar props -->
     </div>
-{{/each}}
+{{/each}} --}}
 
 
 
+<section class="container_card">	
+        {{#each products}}
+        <div class="card">
+            <h2 class="card-h2">{{title}}</h2>
+                <img src="{{thumbnail}}" alt="img">
+                    <div class="card-content">
+                        <p class="description">{{description}}</p>
+                        <p class="price">{{price}}</p>
+                        <a href="#" class="btn">Ver más</a>
+                    </div>
+            <!-- faltan agregar props -->
+        </div>
+    {{/each}}
+</section>

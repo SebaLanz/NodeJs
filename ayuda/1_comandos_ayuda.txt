@@ -52,3 +52,6 @@ Set-ExecutionPolicy RemoteSigned -Scope Process  (si falta permiso)
 npm install express express-handlebars
 
 12)Para iconos, los tuve que descargar y utilizar de forma local.
+
+13)npm install socket.io (websockets)
+

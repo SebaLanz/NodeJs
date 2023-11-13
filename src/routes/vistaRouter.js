@@ -5,13 +5,13 @@ const { Producto } = require('../manager/productosManager.js');
 const productosManager = new Producto();
 
 router.get('/', (request, response) => {
-  response.status(200).render('home');
+  response.status(200).render('index');//renderizo el archivo index.handlebars
 });
 
 
 router.get('/api/products', (request, response) => {
     let products =  productosManager.GetProductosAll(request, response);
-    response.status(200).render('products',{
+    response.status(200).render('products',{//renderizo el archivo products.handlebars
         products
     });
 })
