@@ -5,6 +5,9 @@ const productos = require(utils.getAbsolutePath('clases/productos/productos.js')
 const { validatorById, validatorByAll, validatorStatusActive, validatorStatusInactive, validatorUpdate } = require(utils.getAbsolutePath('clases/error/validatorManager.js'));
 
 class Producto { 
+
+
+
     // ------>GetProductosAll<------
       GetProductosAll = (request, response) => {
           const limit = request.query.limit || productos.productos.length;
@@ -144,9 +147,9 @@ class Producto {
     
   }
     
-    
-
     //FIN DELETE.
+
+
 
     module.exports = {
         Producto

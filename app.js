@@ -1,6 +1,8 @@
 //Sever y express.
 const express = require('express');
 const handlebars = require('express-handlebars');
+const handlebarsHelpers = require('handlebars-helpers'); // Importa handlebars-helpers
+
 const path = require('path');
 const port = 8080;
 const { Server } = require('http');
@@ -12,41 +14,43 @@ const productosRoutes = require('./src/routes/productosRouter.js');
 const vistasRouter = require('./src/routes/vistaRouter.js');
 const absolutePathToViews = utils.getAbsolutePath('./src/views');
 
-
-//Instancia de servidor http y websocket.
+// Instancia de servidor http y websocket.
 const app = express();
 const httpServer = app.listen(port, () => console.log(`Servidor Express escuchando en el puerto ${port}`));
-const io = socketIO(httpServer); //Instancio cliente con socket io. //SocketSever  
+const io = socketIO(httpServer); // Instancio cliente con socket io. //SocketSever  
 
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
-  app.use(express.static('./src/public'));
+// Obtén los helpers de handlebars-helpers
+const helpers = handlebarsHelpers();
 
-  const hbs = handlebars.create({
-    partialsDir: path.join(__dirname, 'src', 'views', 'partials'),
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('./src/public'));
+
+const hbs = handlebars.create({
+  partialsDir: path.join(__dirname, 'src', 'views', 'partials'),
+});
+
+// Registra los helpers de handlebars-helpers
+hbs.handlebars.registerHelper(helpers);
+
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+app.set('views', absolutePathToViews);
+
+// Rutas
+app.use('/', vistasRouter);
+app.use('/', usuariosRoutes);
+app.use('/', productosRoutes);
+
+// Instancia de socket y emisiones.
+io.on('connection', socket => {
+  console.log('Nuevo cliente conectado');
+
+  socket.on('message', data => {
+    console.log(data);
   });
 
-  app.engine('handlebars', hbs.engine);
-  app.set('view engine', 'handlebars');
-  app.set('views', absolutePathToViews);
-
-  // Rutas
-  app.use('/', vistasRouter);
-  app.use('/', usuariosRoutes);
-  app.use('/', productosRoutes);
-
-  //Instancia de socket y emisiones.
-  io.on('connection', socket => {
-    console.log('Nuevo cliente conectado');
-
-    socket.on('message', data => {
-      console.log(data);
-    })
-
-    socket.emit('evento_individual', 'mensaje individual, el cual es una relación 1 a 1');
-    socket.broadcast.emit('mensaje_para_todos_menos_para_mi', 'Este mensaje lo ven todos menos el usuario emisor');
-    io.emit('msj_para_todos','Este msj lo reciben todos');
-
-  });
-    
-
+  socket.emit('evento_individual', 'mensaje individual, el cual es una relación 1 a 1');
+  socket.broadcast.emit('mensaje_para_todos_menos_para_mi', 'Este mensaje lo ven todos menos el usuario emisor');
+  io.emit('msj_para_todos','Este msj lo reciben todos');
+});

@@ -1,0 +1,26 @@
+/* Estilos para la paginación */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .pagination li {
+    margin: 0 4px;
+  }
+  
+  .pagination a {
+    color: #007bff;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #025077ab;
+    border-radius: 4px;
+    background-color: whitesmoke;
+    transition: 0.7s;
+  }
+  
+  .pagination a:hover {
+    background-color: #025077ab;
+    color: #fff;
+  }

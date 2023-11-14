@@ -55,3 +55,6 @@ npm install express express-handlebars
 
 13)npm install socket.io (websockets)
 
+14)npm install handlebars-helpers para intentar utilizar pagination.
+
+

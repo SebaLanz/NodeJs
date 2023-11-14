@@ -1,26 +1,37 @@
-const express = require('express');
-const router = express.Router();
-const { Producto } = require('../manager/productosManager.js');
+  const express = require('express');
+  const router = express.Router();
+  const { generatePagination }  = require('../public/javascript/pagination.js')
+  const { Producto } = require('../manager/productosManager.js');
 
-const productosManager = new Producto();
+  const productosManager = new Producto();
 
-router.get('/', (request, response) => {
-  response.status(200).render('index');//renderizo el archivo index.handlebars
-});
-
-
-router.get('/api/products', (request, response) => {
-    let products =  productosManager.GetProductosAll(request, response);
-    response.status(200).render('products',{//renderizo el archivo products.handlebars
-        products
-    });
-})
+  router.get('/', (request, response) => {
+    response.status(200).render('index');//renderizo el archivo index.handlebars
+  });
 
 
+  router.get('/api/products', (request, response) => {
+      const itemsPerPage = 9;
+      const currentPage = request.query.page || 1; // Página actual (si no se proporciona, es la primera página)
+      const allProducts = productosManager.GetProductosAll(request, response);
+      const totalItems = allProducts.length;
+      // Calcular productos paginados
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      const paginatedProducts = allProducts.slice(startIndex, endIndex);   
+      // Generar información de paginación
+      const pagination = generatePagination(totalItems, itemsPerPage, currentPage);
+      response.status(200).render('products', {
+        products: paginatedProducts,
+        pagination,
+      });
+  })
 
 
 
 
 
-module.exports = router;
+
+
+  module.exports = router;
 
