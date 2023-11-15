@@ -1,26 +1,26 @@
 //Sever y express.
 const express = require('express');
 const handlebars = require('express-handlebars');
-const handlebarsHelpers = require('handlebars-helpers'); // Importa handlebars-helpers
-
+const handlebarsHelpers = require('handlebars-helpers');
 const path = require('path');
 const port = 8080;
-const { Server } = require('http');
-const socketIO = require('socket.io'); // Agrega esta línea
+const socketIO = require('socket.io');
 //Utilidades y recursos.
 const utils = require('./utils');
 const usuariosRoutes = require('./src/routes/usuariosRouter.js');
 const productosRoutes = require('./src/routes/productosRouter.js');
 const vistasRouter = require('./src/routes/vistaRouter.js');
 const absolutePathToViews = utils.getAbsolutePath('./src/views');
-
+const helpers = handlebarsHelpers();//lo uso para la paginación
 // Instancia de servidor http y websocket.
 const app = express();
 const httpServer = app.listen(port, () => console.log(`Servidor Express escuchando en el puerto ${port}`));
 const io = socketIO(httpServer); // Instancio cliente con socket io. //SocketSever  
 
-// Obtén los helpers de handlebars-helpers
-const helpers = handlebarsHelpers();
+
+
+
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -54,3 +54,5 @@ io.on('connection', socket => {
   socket.broadcast.emit('mensaje_para_todos_menos_para_mi', 'Este mensaje lo ven todos menos el usuario emisor');
   io.emit('msj_para_todos','Este msj lo reciben todos');
 });
+
+module.exports = app;

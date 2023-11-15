@@ -2,7 +2,6 @@
   const router = express.Router();
   const { generatePagination }  = require('../public/javascript/pagination.js')
   const { Producto } = require('../manager/productosManager.js');
-
   const productosManager = new Producto();
 
   router.get('/', (request, response) => {
@@ -15,23 +14,15 @@
       const currentPage = request.query.page || 1; // Página actual (si no se proporciona, es la primera página)
       const allProducts = productosManager.GetProductosAll(request, response);
       const totalItems = allProducts.length;
-      // Calcular productos paginados
-      const startIndex = (currentPage - 1) * itemsPerPage;
+      const startIndex = (currentPage - 1) * itemsPerPage;// Calcular productos paginados
       const endIndex = startIndex + itemsPerPage;
-      const paginatedProducts = allProducts.slice(startIndex, endIndex);   
-      // Generar información de paginación
+      const paginatedProducts = allProducts.slice(startIndex, endIndex);   // Generar información de paginación
       const pagination = generatePagination(totalItems, itemsPerPage, currentPage);
       response.status(200).render('products', {
         products: paginatedProducts,
         pagination,
       });
   })
-
-
-
-
-
-
 
   module.exports = router;
 
