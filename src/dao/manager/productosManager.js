@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const utils = require('../../utils.js');
+const utils = require('../../../utils.js');
 const productos = require(utils.getAbsolutePath('clases/productos/productos.js'));
 const { validatorById, validatorByAll, validatorStatusActive, validatorStatusInactive, validatorUpdate } = require(utils.getAbsolutePath('clases/error/validatorManager.js'));
 

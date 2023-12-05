@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const utils = require('../../utils.js');
+const utils = require('../../../utils.js');
 const usersData = require(utils.getAbsolutePath('clases/usuarios/usuarios.js'));
 const { validatorByAll, validatorById, validatorStatusActive, validatorStatusInactive, validatorUpdate,validatorId } = require(utils.getAbsolutePath('clases/error/validatorManager.js'));
 const RegEx = require(utils.getAbsolutePath('clases/regEx/expresionesRegulares.js'));
