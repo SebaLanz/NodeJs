@@ -1,7 +1,7 @@
   const express = require('express');
   const router = express.Router();
   const { generatePagination }  = require('../public/javascript/pagination.js')
-  const { Producto } = require('../manager/productosManager.js');
+  const { Producto } = require('../dao/manager/productosManager.js');
   const productosManager = new Producto();
 
   router.get('/', (request, response) => {

@@ -9,7 +9,7 @@ const productos = [
   "thumbnail": "https://i.pravatar.cc",
   "code": "P001",
   "stock": 5,
-  "status": true,
+  "status": false,
   "category": "cocina"
 },
 {

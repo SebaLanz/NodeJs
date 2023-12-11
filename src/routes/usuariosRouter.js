@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const utils = require('../../utils.js');
-const { Usuario } = require(utils.getAbsolutePath('./src/manager/usuariosManager.js'));
+const { Usuario } = require(utils.getAbsolutePath('./src/dao/manager/usuariosManager.js'));
 const users = new Usuario();
 
 
