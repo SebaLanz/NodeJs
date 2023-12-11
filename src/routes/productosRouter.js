@@ -5,7 +5,8 @@ const { Producto } = require(utils.getAbsolutePath('./src/dao/manager/productosM
 const products = new Producto();
 const  { io } = require(utils.getAbsolutePath('./app.js'))
 // const io = app.get('io');
-//Productos --->
+
+/*Productos / ENDPOINTS VIEJOS que trabajan con archivos locales --->
 router.get('/api/products', products.GetProductosAll);
 router.get('/api/products/active', products.GetProductosActives);
 router.get('/api/products/inactive', products.GetProductosInactives);
@@ -18,9 +19,11 @@ router.get('/api/products/:id', (request, response) => {
 router.put('/api/products/:id', products.updateProductById);
 router.post('/api/products/', products.createProduct);
 router.delete('/api/products/delete/:id', products.deleteProduct);
-//Fin Productos ---!
+//Fin Productos --*/
 
-//Inicio productosDB
+
+
+//Inicio productos con MONGODB, nuevos ENDPOINTS
 
 router.get('/api/productsDb', products.GetProductosAllDb);
 router.get('/api/productsDb/active', products.GetProductosActivesDb);

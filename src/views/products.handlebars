@@ -17,7 +17,7 @@
   <ul class="pagination">
     {{#each pagination.pages}}
       <li class="page-item {{#if (eq ../pagination.currentPage this)}}active{{/if}}">
-        <a class="page-link" href="/api/products?page={{this}}">
+        <a class="page-link" href="/api/productsDb?page={{this}}">
           {{this}}
         </a>
       </li>

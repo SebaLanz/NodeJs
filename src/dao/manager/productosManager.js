@@ -155,20 +155,37 @@ class Producto {
   // ------>GetProductosAllDB<------
   GetProductosAllDb = async (request, response) => {
     try {
-      const limit = request.query.limit || 999999; // 999999 es el máximo de productos que muestra si no recibo un limite.
+      await this.conec.conectar();
+      const limit = request.query.limit || 999999;
+  
       if (validatorByAll(limit, response)) {
-        await this.conec.conectar();
         const productosCollection = this.conec.db.collection('products');
         const productosLimitados = await productosCollection.find().limit(parseInt(limit, 10)).toArray();
-        response.json(productosLimitados);
+  
+        if (request.accepts('html')) {
+          // Renderiza la vista con Handlebars si la solicitud acepta HTML
+          response.render('products', { products: productosLimitados });
+        } else {
+          // Devuelve JSON si la solicitud no acepta HTML
+          response.json(productosLimitados);
+        }
       }
     } catch (error) {
       console.error('Error al obtener productos:', error);
-      response.status(500).json({ error: 'Error al obtener productos' });
+  
+      if (request.accepts('html')) {
+        // Renderiza la página de error en HTML
+        response.status(500).render('error', { error: 'Error al obtener productos' });
+      } else {
+        // Devuelve JSON en caso de error
+        response.status(500).json({ error: 'Error al obtener productos' });
+      }
     } finally {
       this.conec.desconectar();
     }
   };
+  
+  
 
   //------>GetProductosByIdDB<------
   GetProductosByIdDb = async (productId, response) => {

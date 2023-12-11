@@ -12,13 +12,14 @@
   router.get('/api/products', (request, response) => {
       const itemsPerPage = 9;
       const currentPage = request.query.page || 1; // Página actual (si no se proporciona, es la primera página)
-      const allProducts = productosManager.GetProductosAll(request, response);
+      const allProducts = productosManager.GetProductosAllDb(request, response);
       const totalItems = allProducts.length;
+      console.log(totalItems);
       const startIndex = (currentPage - 1) * itemsPerPage;// Calcular productos paginados
       const endIndex = startIndex + itemsPerPage;
       const paginatedProducts = allProducts.slice(startIndex, endIndex);   // Generar información de paginación
       const pagination = generatePagination(totalItems, itemsPerPage, currentPage);
-      response.status(200).render('products', {
+      response.status(200).render('productsDb', {
         products: paginatedProducts,
         pagination,
       });
