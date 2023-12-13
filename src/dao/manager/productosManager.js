@@ -160,32 +160,16 @@ class Producto {
   
       if (validatorByAll(limit, response)) {
         const productosCollection = this.conec.db.collection('products');
-        const productosLimitados = await productosCollection.find().limit(parseInt(limit, 10)).toArray();
+        const productosLimitados = await productosCollection.find().toArray();
   
-        if (request.accepts('html')) {
-          // Renderiza la vista con Handlebars si la solicitud acepta HTML
-          response.render('products', { products: productosLimitados });
-        } else {
-          // Devuelve JSON si la solicitud no acepta HTML
-          response.json(productosLimitados);
-        }
+        return productosLimitados; // Devuelve el resultado explícitamente
       }
     } catch (error) {
       console.error('Error al obtener productos:', error);
-  
-      if (request.accepts('html')) {
-        // Renderiza la página de error en HTML
-        response.status(500).render('error', { error: 'Error al obtener productos' });
-      } else {
-        // Devuelve JSON en caso de error
-        response.status(500).json({ error: 'Error al obtener productos' });
-      }
-    } finally {
-      this.conec.desconectar();
+      response.status(500).json({ error: 'Error al obtener productos' });
     }
   };
-  
-  
+
 
   //------>GetProductosByIdDB<------
   GetProductosByIdDb = async (productId, response) => {
@@ -243,6 +227,23 @@ class Producto {
     }
   };
 
+  //
+  // Obtener la cantidad de documentos con la propiedad id_producto.
+  GetCountProductos = async () => {
+    try {
+      await this.conec.conectar();
+      const productosCollection = this.conec.db.collection('products');
+      // Contar documentos que tengan la propiedad id_producto
+      const totalCount = await productosCollection.countDocuments({ id_producto: { $exists: true } });
+      
+      return totalCount;
+    } catch (error) {
+      console.error('Error al obtener la cantidad total de productos:', error);
+      throw error;
+    } finally {
+      await this.conec.desconectar();
+    }
+  };
   //------->updateProductByIdDB<---------
   updateProductByIdDb = async (request, response) => {
     const tipo = 'Producto';

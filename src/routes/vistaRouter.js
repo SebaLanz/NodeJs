@@ -8,22 +8,36 @@
     response.status(200).render('index');//renderizo el archivo index.handlebars
   });
 
+// Ruta para renderizar la vista con productos paginados
+router.get('/api/productsDb', async (request, response) => {
+  try {
+    const itemsPerPage = 9;
+    const currentPage = request.query.page || 1;
+    
+    const [allProducts, totalItems] = await Promise.all([
+      productosManager.GetProductosAllDb(request, response),
+      productosManager.GetCountProductos()
+    ]);
 
-  router.get('/api/products', (request, response) => {
-      const itemsPerPage = 9;
-      const currentPage = request.query.page || 1; // Página actual (si no se proporciona, es la primera página)
-      const allProducts = productosManager.GetProductosAllDb(request, response);
-      const totalItems = allProducts.length;
-      console.log(totalItems);
-      const startIndex = (currentPage - 1) * itemsPerPage;// Calcular productos paginados
-      const endIndex = startIndex + itemsPerPage;
-      const paginatedProducts = allProducts.slice(startIndex, endIndex);   // Generar información de paginación
-      const pagination = generatePagination(totalItems, itemsPerPage, currentPage);
-      response.status(200).render('productsDb', {
-        products: paginatedProducts,
-        pagination,
-      });
-  })
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+
+    const paginatedProducts = allProducts.slice(startIndex, endIndex);
+    const pagination = generatePagination(totalItems, itemsPerPage, currentPage);
+    response.status(200).render('products', {
+      products: paginatedProducts,
+      pagination,
+    });
+  } catch (error) {
+    console.error('Error:', error);
+    response.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
+
+
 
   module.exports = router;
 
