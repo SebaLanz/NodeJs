@@ -35,8 +35,10 @@ router.get('/api/productsDb', async (request, response) => {
 });
 
 
-
-
+// Carrito ->
+router.get('/api/carritosDb', async (request, response) => {
+  response.status(200).render('carrito');
+});
 
 
   module.exports = router;

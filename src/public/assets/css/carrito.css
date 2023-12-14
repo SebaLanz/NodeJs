@@ -1,0 +1,19 @@
+.contenedor_carrito {
+    margin-top: 2% !important;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 80vw;
+    margin: 0 10vw; /* Espacio a la izquierda y derecha */
+    background-color: #fff; /* Fondo blanco del recuadro */
+  }
+
+  .fila {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .imagen {
+    max-width: 100px; /* Ajusta el tamaño de la imagen según tus necesidades */
+  }
