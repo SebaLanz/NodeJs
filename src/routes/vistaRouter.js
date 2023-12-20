@@ -4,9 +4,9 @@
   const { Producto } = require('../dao/manager/productosManager.js');
   const productosManager = new Producto();
 
-  router.get('/', (request, response) => {
-    response.status(200).render('index');//renderizo el archivo index.handlebars
-  });
+router.get('/', (request, response) => {
+  response.status(200).render('index');//renderizo el archivo index.handlebars
+});
 
 // Ruta para renderizar la vista con productos paginados
 router.get('/api/productsDb', async (request, response) => {
@@ -41,5 +41,14 @@ router.get('/api/carritosDb', async (request, response) => {
 });
 
 
-  module.exports = router;
+// Login ->
+router.get('/api/login', async (request, response) => {
+  response.status(200).render('login', { isLoginPage: true });
+});
+
+// Registrar ->
+router.get('/api/registrar', async (request, response) => {
+  response.status(200).render('registrar', { isLoginPage: true });
+});
+module.exports = router;
 

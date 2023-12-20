@@ -1,48 +1,59 @@
+{{!--CON #if isLoginPage Hago un condicional para mostrar su código html y css, en caso de que no sea login, 
+            Cargo todos los archivos restantes.--}}
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Bienvenido</title>
+  {{#if isLoginPage}} <title>Login</title> {{/if}}
+  {{#unless isLoginPage}} <title>Proyecto Coder</title>{{/unless}}
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/assets/css/footer.css">
-  <link rel="stylesheet" href="/assets/css/main.css">
-  <link rel="stylesheet" href="/assets/css/body.css">
-  <link rel="stylesheet" href="/assets/css/card.css">
-  <link rel="stylesheet" href="/assets/css/carrito.css">
-  <link rel="stylesheet" href="/assets/css/pagination.css">
+  {{#unless isLoginPage}}
+    <link rel="stylesheet" href="/assets/css/footer.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/body.css">
+    <link rel="stylesheet" href="/assets/css/card.css">
+    <link rel="stylesheet" href="/assets/css/carrito.css">
+    <link rel="stylesheet" href="/assets/css/pagination.css">
+    <link href="/assets/fontawesome/css/fontawesome.css" rel="stylesheet">
+    <link href="/assets/fontawesome/css/brands.css" rel="stylesheet">
+    <link href="/assets/fontawesome/css/solid.css" rel="stylesheet">
+    <script src="/javascript/menu_hamburguesa.js"></script>
+  {{/unless}}
 
-  <link href="/assets/fontawesome/css/fontawesome.css" rel="stylesheet">
-  <link href="/assets/fontawesome/css/brands.css" rel="stylesheet">
-  <link href="/assets/fontawesome/css/solid.css" rel="stylesheet">
-  <script src="/javascript/menu_hamburguesa.js"></script>
-  <!-- En el head de tu HTML -->
-{{!-- <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css"> --}}
+  {{#if isLoginPage}}
+    <link rel="stylesheet" href="/assets/css/login.css">
+  {{/if}}
+
+
+
+
 
 </head>
+{{#unless isLoginPage}}
 <body class="body_main">
-  <nav class="menu_nav">
-    <input type="checkbox" id="check">
-    <label for="check" class="checkbtn">
-      <i class="fas fa-bars"></i>
-    </label>
-    <label class="logo">NodeProject</label>
-    <ul class="menu_ul">
-      <li class="menu_li"><a href="/">Inicio</a></li>
-      <li class="menu_li"><a href="/api/productsDb">Productos</a></li>
-      <li class="menu_li"><a href="/api/users">Usuarios</a></li>
-      <li class="menu_li"><a href="/api/carritosDb">Carrito</a></li>
-      <li class="menu_li"><a href="#">Mis Compras</a></li>
-      <li class="menu_li"><a href="#">Perfil</a></li>
-    </ul>
-  </nav>
-    
+    <nav class="menu_nav">
+      <input type="checkbox" id="check">
+      <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+      </label>
+      <label class="logo">NodeProject</label>
+      <ul class="menu_ul">
+        <li class="menu_li"><a href="/">Inicio</a></li>
+        <li class="menu_li"><a href="/api/productsDb">Productos</a></li>
+        <li class="menu_li"><a href="/api/users">Usuarios</a></li>
+        <li class="menu_li"><a href="/api/carritosDb">Carrito</a></li>
+        <li class="menu_li"><a href="#">Mis Compras</a></li>
+        <li class="menu_li"><a href="#">Perfil</a></li>
+      </ul>
+    </nav>
+  {{/unless}}
+
     {{{body}}}
 
-    {{> footer}} <!--Exporto el footer a todos las páginas-->
+  {{#unless isLoginPage}}
+      {{> footer}} <!--Exporto el footer a todos las páginas-->
+  {{/unless}}
 
-
-{{!-- <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> --}}
 </body>
 </html>
