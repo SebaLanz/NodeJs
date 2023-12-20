@@ -1,0 +1,82 @@
+/* Agrega otras reglas de estilo según sea necesario */
+
+/* Table */
+table {
+    width: 80%;
+    height: 80%;
+    margin: 30px; /* Ajusta el valor según sea necesario */
+    margin-left: 10%;
+    
+    margin-bottom: 3%;
+    color: #212529;
+    border-collapse: collapse;
+  }
+  
+  /* Table Head */
+  thead {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  /* Table Body */
+  tbody {
+    background-color: #fff;
+  }
+  
+  /* Table Rows */
+  tr {
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  /* Table Data Cells */
+  td, th {
+    padding: 0.75rem;
+    text-align: left;
+  }
+  
+  /* Responsive Table Styling */
+  @media (max-width: 575.98px) {
+    table {
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-spacing: 0;
+      border-collapse: collapse;
+    }
+  
+    th, td {
+      white-space: nowrap;
+    }
+    
+    th {
+      text-align: left;
+    }
+  
+    tbody, thead tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+    }
+    
+    tbody {
+      max-height: 300px; /* Ajusta según sea necesario */
+      overflow-y: auto;
+    }
+  
+    td, th {
+      display: block;
+      padding: 0.5rem;
+    }
+  
+    td {
+      text-align: right; /* Ajusta según sea necesario */
+    }
+  
+    td::before {
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+    }
+  }
+  

@@ -5,7 +5,6 @@ const { Producto } = require(utils.getAbsolutePath('./src/dao/manager/productosM
 const products = new Producto();
 const  { io } = require(utils.getAbsolutePath('./app.js'))
 // const io = app.get('io');
-let productosJson; // Variable global para almacenar los productos
 
 /*Productos / ENDPOINTS VIEJOS que trabajan con archivos locales --->
 router.get('/api/products', products.GetProductosAll);
