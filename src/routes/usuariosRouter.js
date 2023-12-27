@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const utils = require('../../utils.js');
+const Swal = require('sweetalert2'); //alertas.
 const { Usuario } = require(utils.getAbsolutePath('./src/dao/manager/usuariosManager.js'));
 const users = new Usuario();
 
@@ -32,5 +33,25 @@ router.get('/api/usersDb/:id', async (request, response) => {
     response.status(500).json({ error: 'Error en la ruta' });
   }
 });
+
+router.post('/api/registrar/', async (request, response) => {
+  try {
+    const { username, mail, password } = request.body;
+
+    if (!username || !mail || !password) {
+      return response.status(400).json({ success: false, message: 'Faltan datos obligatorios' });
+    }
+
+    const result = await users.createUser(username, mail, password);
+
+    response.status(result.success ? 201 : 400).json(result);
+  } catch (error) {
+    console.error('Error:', error);
+    response.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+});
+
+
+
 
 module.exports = router;

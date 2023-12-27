@@ -4,7 +4,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
@@ -27,50 +28,55 @@
 <!--===============================================================================================-->
 </head>
 <body>
-	
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100">
-				<form class="login100-form validate-form">
-					<span class="login100-form-title p-b-26">
-						Crear Usuario !!
-					</span>
-					<span class="login100-form-title p-b-48">
-						<p style="font-weight: bold;">CoderHouse</p>
-					</span>
-
-					<div class="wrap-input100 validate-input" data-validate = "Formato: abc@def.com">
-						<input class="input100" type="text" name="email">
-						<span class="focus-input100" data-placeholder="Email"></span>
-					</div>
-
-					<div class="wrap-input100 validate-input" data-validate="Ingrese Clave">
-						<span class="btn-show-pass">
-							<i class="zmdi zmdi-eye"></i>
+	<form action="/api/registrar" method="post">
+		<div class="limiter">
+			<div class="container-login100">
+				<div class="wrap-login100">
+					<form class="login100-form validate-form">
+						<span class="login100-form-title p-b-26">
+							Crear Usuario !!
 						</span>
-						<input class="input100" type="password" name="pass">
-						<span class="focus-input100" data-placeholder="Password"></span>
-					</div>
+						<span class="login100-form-title p-b-48">
+							<p style="font-weight: bold;">CoderHouse</p>
+						</span>
 
-					<div class="container-login100-form-btn">
-						<div class="wrap-login100-form-btn">
-							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn">
-								Registrarme
-							</button>
+						<div class="wrap-input100" data-validate="Usuario Existente">
+							<input class="input100" type="text" name="username" id="username">
+							<span class="focus-input100" data-placeholder="Usuario"></span>
 						</div>
-					</div>
 
-					<div class="text-center p-t-44">
-						<a class="txt2" href="/api/login" style="font-weight:bold; color:rgba(54, 54, 138, 0.603));">
-							Volver
-						</a>
-					</div>
-				</form>
+						<div class="wrap-input100 validate-input" data-validate="Formato: abc@def.com">
+							<input class="input100" type="text" name="mail" id="mail">
+							<span class="focus-input100" data-placeholder="Email"></span>
+						</div>
+
+						<div class="wrap-input100 validate-input" data-validate="Ingrese Clave">
+							<span class="btn-show-pass">
+								<i class="zmdi zmdi-eye"></i>
+							</span>
+							<input class="input100" type="password" name="password" id="password">
+							<span class="focus-input100" data-placeholder="Password"></span>
+						</div>
+
+						<div class="container-login100-form-btn">
+							<div class="wrap-login100-form-btn">
+								<div class="login100-form-bgbtn"></div>
+								<button class="login100-form-btn" id="btnRegistrar" type="button">
+									Registrarme
+								</button>
+							</div>
+						</div>
+
+						<div class="text-center p-t-44">
+							<a class="txt2" href="/api/login" style="font-weight:bold; color:rgba(54, 54, 138, 0.603));">
+								Volver
+							</a>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
-	
+	</form>
 
 	<div id="dropDownSelect1"></div>
 	
@@ -90,6 +96,53 @@
 	<script src="/vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================--> 
 	<script src="/javascript/login.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const btnRegistrar = document.getElementById('btnRegistrar');
+
+    if (btnRegistrar) {
+        btnRegistrar.addEventListener('click', async function () {
+            try {
+                const result = await fetch('/api/registrar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: document.getElementById('username').value,
+                        mail: document.getElementById('mail').value,
+                        password: document.getElementById('password').value,
+                    }),
+                }).then(response => response.json());
+
+                if (result.success) {
+                    await Swal.fire({
+                        icon: 'success',
+						title: `Usuario Creado Correctamente <br>`,
+                        text: `El Usuario: ${document.getElementById('username').value} fué creado exitosamente`,
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+
+                    // Redirige al usuario después de mostrar el SweetAlert
+                    window.location.href = '/api/login';
+                } else {
+					
+                    await Swal.fire({
+                        icon: 'error',
+                        title: `Error al crear el usuario `,
+                        text: result.message
+                    });
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                // Puedes manejar errores aquí si es necesario
+            }
+        });
+    }
+});
+</script>
 
 </body>
 </html>

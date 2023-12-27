@@ -7,7 +7,7 @@
   const usuariosManager = new Usuario();
 
 router.get('/', (request, response) => {
-  response.status(200).render('index');//renderizo el archivo index.handlebars
+  response.status(200).render('login');//renderizo el archivo login.handlebars
 });
 
 // Ruta para renderizar la vista con productos paginados

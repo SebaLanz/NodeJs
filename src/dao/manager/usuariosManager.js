@@ -177,25 +177,50 @@ class Usuario {
     // };
     
     
-      getUsuarioByIdDb = async (userId, response) => {
-        try {
-          userId = +userId;
-          await this.conec.conectar();
-          const usuariosCollection = this.conec.db.collection('users');
-          const usuario = await usuariosCollection.findOne({ id_usuario: userId });
-          if (!usuario) {
-            validatorById(usuario, userId, response);
-            return null;
-          }
-          return usuario;
-        } catch (error) {
-          console.error('Error al obtener usuario por ID:', error);
-          response.status(500).json({ error: 'Error al obtener usuario por ID' });
-        } finally {
-          this.conec.desconectar();
+    getUsuarioByIdDb = async (userId, response) => {
+      try {
+        userId = +userId;
+        await this.conec.conectar();
+        const usuariosCollection = this.conec.db.collection('users');
+        const usuario = await usuariosCollection.findOne({ id_usuario: userId });
+        if (!usuario) {
+          validatorById(usuario, userId, response);
+          return null;
         }
-      };
-      
+        return usuario;
+      } catch (error) {
+        console.error('Error al obtener usuario por ID:', error);
+        response.status(500).json({ error: 'Error al obtener usuario por ID' });
+      } finally {
+        this.conec.desconectar();
+      }
+    };
+     
+    
+    createUser = async (usuario, mail, password) => {
+      try {
+        await this.conec.conectar();
+  
+        const usuariosCollection = this.conec.db.collection('users');
+  
+        // Verifica si el usuario ya existe
+        const existingUser = await usuariosCollection.findOne({ usuario });
+  
+        if (existingUser) {
+          return { success: false, message: 'El usuario ya existe' };
+        }
+  
+        // Si el usuario no existe, crea un nuevo usuario
+        const newUser = { usuario, mail, password };
+  
+        await usuariosCollection.insertOne(newUser);
+  
+        return { success: true, message: 'Usuario creado exitosamente' };
+      } catch (error) {
+        console.error('Error al crear usuario:', error);
+        return { success: false, message: 'Error al crear usuario' };
+      }
+    }
 }
 
 module.exports = {
