@@ -58,3 +58,11 @@ npm install express express-handlebars
 14)npm install handlebars-helpers para intentar utilizar pagination.
 
 
+Recuroso callbacks github: 
+http://localhost:8080/api/sessions/callbacksGitHub
+
+App ID: 803746
+
+Client ID: Iv1.05482e969b941dd1
+
+f8d07a3418edd746b8f7dfd2af070f80e756c23f

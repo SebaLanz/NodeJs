@@ -12,14 +12,22 @@ const productosRoutes = require('./src/routes/productosRouter.js');
 const vistasRouter = require('./src/routes/vistaRouter.js');
 const absolutePathToViews = utils.getAbsolutePath('./src/views');
 const helpers = handlebarsHelpers();//lo uso para la paginación
+const cors = require('cors');
+const session = require('express-session');
 // Instancia de servidor http y websocket.
 const app = express();
 const httpServer = app.listen(port, () => console.log(`Servidor Express escuchando en el puerto ${port}`));
 const io = socketIO(httpServer); // Instancio cliente con socket io. //SocketSever  
 
-
-
-
+app.use(session({
+  secret: 'CoderNodeJS',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: false, // Cambia a true si estás usando HTTPS
+    sameSite: 'None', // Agrega esta línea para evitar el error SameSite
+  },
+}));
 
 
 app.use(express.json());
@@ -37,6 +45,7 @@ app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.set('views', absolutePathToViews);
 
+app.use(cors());
 // Rutas
 app.use('/', vistasRouter);
 app.use('/', usuariosRoutes);

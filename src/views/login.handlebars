@@ -110,6 +110,7 @@
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ email, password }),
+				credentials: 'include', // Incluye las cookies en la solicitud
             });
 
             if (response.status === 200) {

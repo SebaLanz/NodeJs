@@ -7,12 +7,39 @@
   const usuariosManager = new Usuario();
   const bcrypt = require('bcrypt');
 
-router.get('/', (request, response) => {
-  response.status(200).render('index');//renderizo el archivo login.handlebars
+
+// Middleware para verificar la autenticación del usuario
+const authenticateMiddleware = (request, response, next) => {
+  // Lista de rutas públicas que pueden ser accedidas sin iniciar sesión
+  const publicRoutes = ['/api/login', '/api/registrar'];
+
+  // Verifica si la ruta actual es pública
+  if (publicRoutes.includes(request.path)) {
+    // Ruta pública, permitir acceso
+    return next();
+  }
+
+  // Verifica si el usuario está autenticado, de lo contrario, renderiza la vista de login
+  if (request.session && request.session.email) {
+    next();
+  } else {
+    // Si es una solicitud AJAX (como la que realiza fetch), responde con un código 401
+    if (request.xhr) {
+      return response.status(401).json({ error: 'Unauthorized' });
+    }
+    // Si es una solicitud normal, redirige a la página de login
+    response.status(401).render('login', { isLoginPage: true });
+  }
+};
+
+//Index
+router.get('/', authenticateMiddleware, (request, response) => {
+  const userEmail = request.session.email; // Obtén el email desde la sesión
+  response.status(200).render('index', { email: userEmail }); // Renderiza la vista con el email
 });
 
 // Ruta para renderizar la vista con productos paginados
-router.get('/api/productsDb', async (request, response) => {
+router.get('/api/productsDb',authenticateMiddleware, async (request, response) => {
   try {
     const itemsPerPage = 9;
     const currentPage = request.query.page || 1;
@@ -37,14 +64,13 @@ router.get('/api/productsDb', async (request, response) => {
   }
 });
 
-
 // Carrito ->
-router.get('/api/carritosDb', async (request, response) => {
+router.get('/api/carritosDb',authenticateMiddleware, async (request, response) => {
   response.status(200).render('carrito');
 });
 
 // Usuarios ->
-router.get('/api/usersDb', async (request, response) => {
+router.get('/api/usersDb',authenticateMiddleware, async (request, response) => {
   try {
     const itemsPerPage = 9; // Puedes ajustar la cantidad de usuarios por página
     const currentPage = request.query.page || 1;
@@ -72,30 +98,8 @@ router.get('/api/usersDb', async (request, response) => {
   }
 });
 
-
 // Login ->
-// router.get('/api/login', async (request, response) => {
-//   response.status(200).render('login', { isLoginPage: true });
-// });
-
-// router.all('/api/login', async (request, response) => {
-//   if (request.method === 'GET') {
-//     return response.status(200).render('login', { isLoginPage: true });
-//   }
-//   // Si es una solicitud POST, ejecuta la lógica de inicio de sesión
-//   try {
-//     const { email, password } = request.body;
-
-//     if (!email || !password) {
-//       return response.status(200).render('index');
-//     }
-
-//   } catch (error) {
-//     console.error('Error:', error);
-//     response.status(500).json({ success: false, message: 'Error interno del servidor' });
-//   }
-// });
-
+// Login ->
 router.all('/api/login', async (request, response) => {
   if (request.method === 'GET') {
     return response.status(200).render('login', { isLoginPage: true });
@@ -107,13 +111,17 @@ router.all('/api/login', async (request, response) => {
     const user = await usuariosManager.getUsuarioByEmailDb(email, response);
 
     if (!user) {
-      return response.status(401).json({ error: 'Email' });    }
+      return response.status(401).json({ error: 'Email' });
+    }
+
     const passwordMatch = await usuariosManager.comparePassword(password, user.password);
     if (!passwordMatch) {
       return response.status(401).json({ error: 'Email o contraseña incorrectos' });
     }
-    //el inicio de sesión fue exitoso
-    response.status(200).render('index', { success: 'Inicio de sesión exitoso', user });
+
+    // El inicio de sesión fue exitoso
+    request.session.email = email; // Establece la sesión
+    response.status(200).render('index', { success: 'Inicio de sesión exitoso', email });
   } catch (error) {
     console.error('Error:', error);
     response.status(500).json({ success: false, message: 'Error interno del servidor' });
