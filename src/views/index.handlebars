@@ -1,5 +1,25 @@
 <div class="body_main">
     1-1-
+
+    {{#if error}}
+  <!-- Muestra el modal de error -->
+  <div id="errorModal" class="modal">
+    <div class="modal-content">123
+      <span class="close">&times;</span>
+      <p>{{error}}</p>
+    </div>
+  </div>
+{{/if}}
+
+{{#if success}}
+  <!-- Muestra el modal de éxito -->
+  <div id="successModal" class="modal">
+    <div class="modal-content">asd
+      <span class="close">&times;</span>
+      <p>{{success}}</p>
+    </div>
+  </div>
+{{/if}}
 </div>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/javascript/index.js"></script>

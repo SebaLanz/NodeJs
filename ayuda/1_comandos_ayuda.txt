@@ -36,7 +36,7 @@ node --watch ./NodeJs2/app.js (pongo la ruta del archivo el cual quiero ejecutar
 8)
 Alternativa ->
 node --watch -> npm install nodemon -D ->Después modificar el script que setá en package.json
-
+node --watch app.js
 -------
 9)
 REST CLIENT --> EXTENSIÓN PARA PROBAR LOS METODOS GET.PUT.DELETE,ETC

@@ -179,7 +179,7 @@ class Usuario {
     
     getUsuarioByIdDb = async (userId, response) => {
       try {
-        userId = +userId;
+        userId = +userId;//con + trato de convertir a n°.
         await this.conec.conectar();
         const usuariosCollection = this.conec.db.collection('users');
         const usuario = await usuariosCollection.findOne({ id_usuario: userId });
@@ -187,15 +187,12 @@ class Usuario {
           validatorById(usuario, userId, response);
           return null;
         }
-        return usuario;
+        return usuario;//retorno todo el usuario.
       } catch (error) {
         console.error('Error al obtener usuario por ID:', error);
         response.status(500).json({ error: 'Error al obtener usuario por ID' });
-      } finally {
-        this.conec.desconectar();
       }
     };
-     
     
     createUser = async (usuario, mail, password) => {
       try {
@@ -221,6 +218,32 @@ class Usuario {
         return { success: false, message: 'Error al crear usuario' };
       }
     }
+
+    getUsuarioByEmailDb = async (mail, response) => {
+      try {
+        mail = mail;
+        await this.conec.conectar();
+        const usuariosCollection = this.conec.db.collection('users');
+        const mailDb = await usuariosCollection.findOne({ mail: mail });
+        if (!mailDb) {
+          return ('No se encontró el correo en la base de datos2');
+        }
+        return mailDb;
+      } catch (error) {
+        console.error('Error al obtener usuario por email:', error);
+        response.status(500).json({ error: 'Error al obtener usuario por email' });
+      }
+    };
+    
+    // Añade un nuevo método para verificar la contraseña
+    comparePassword = async (providedPassword, storedPassword) => {
+      try {
+        return providedPassword === storedPassword;
+      } catch (error) {
+        console.error('Error al comparar contraseñas:', error);
+        return false;
+      }
+    };
 }
 
 module.exports = {

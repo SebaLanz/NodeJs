@@ -34,6 +34,17 @@ router.get('/api/usersDb/:id', async (request, response) => {
   }
 });
 
+router.get('/api/emailExiste/:email', async (request, response) => {
+  try {
+    const email = await users.getUsuarioByEmailDb(request.params.email, response);
+    if (email) {
+      response.json(email);
+    }
+  } catch (error) {
+    response.status(500).json({ error: 'Error en la ruta email' });
+  }
+});
+
 router.post('/api/registrar/', async (request, response) => {
   try {
     const { username, mail, password } = request.body;

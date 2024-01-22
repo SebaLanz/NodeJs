@@ -5,9 +5,10 @@
   const productosManager = new Producto();
   const { Usuario } = require('../dao/manager/usuariosManager.js');
   const usuariosManager = new Usuario();
+  const bcrypt = require('bcrypt');
 
 router.get('/', (request, response) => {
-  response.status(200).render('login');//renderizo el archivo login.handlebars
+  response.status(200).render('index');//renderizo el archivo login.handlebars
 });
 
 // Ruta para renderizar la vista con productos paginados
@@ -73,9 +74,52 @@ router.get('/api/usersDb', async (request, response) => {
 
 
 // Login ->
-router.get('/api/login', async (request, response) => {
-  response.status(200).render('login', { isLoginPage: true });
+// router.get('/api/login', async (request, response) => {
+//   response.status(200).render('login', { isLoginPage: true });
+// });
+
+// router.all('/api/login', async (request, response) => {
+//   if (request.method === 'GET') {
+//     return response.status(200).render('login', { isLoginPage: true });
+//   }
+//   // Si es una solicitud POST, ejecuta la lógica de inicio de sesión
+//   try {
+//     const { email, password } = request.body;
+
+//     if (!email || !password) {
+//       return response.status(200).render('index');
+//     }
+
+//   } catch (error) {
+//     console.error('Error:', error);
+//     response.status(500).json({ success: false, message: 'Error interno del servidor' });
+//   }
+// });
+
+router.all('/api/login', async (request, response) => {
+  if (request.method === 'GET') {
+    return response.status(200).render('login', { isLoginPage: true });
+  }
+
+  // Si es una solicitud POST, ejecuta la lógica de inicio de sesión
+  try {
+    const { email, password } = request.body;
+    const user = await usuariosManager.getUsuarioByEmailDb(email, response);
+
+    if (!user) {
+      return response.status(401).json({ error: 'Email' });    }
+    const passwordMatch = await usuariosManager.comparePassword(password, user.password);
+    if (!passwordMatch) {
+      return response.status(401).json({ error: 'Email o contraseña incorrectos' });
+    }
+    //el inicio de sesión fue exitoso
+    response.status(200).render('index', { success: 'Inicio de sesión exitoso', user });
+  } catch (error) {
+    console.error('Error:', error);
+    response.status(500).json({ success: false, message: 'Error interno del servidor' });
+  }
 });
+
 
 // Registrar ->
 router.get('/api/registrar', async (request, response) => {
