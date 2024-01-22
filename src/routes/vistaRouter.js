@@ -99,7 +99,6 @@ router.get('/api/usersDb',authenticateMiddleware, async (request, response) => {
 });
 
 // Login ->
-// Login ->
 router.all('/api/login', async (request, response) => {
   if (request.method === 'GET') {
     return response.status(200).render('login', { isLoginPage: true });
@@ -128,10 +127,26 @@ router.all('/api/login', async (request, response) => {
   }
 });
 
-
 // Registrar ->
 router.get('/api/registrar', async (request, response) => {
   response.status(200).render('registrar', { isLoginPage: true });
+});
+
+// Perfil ->
+router.get('/api/perfilDb', authenticateMiddleware, (request, response) => {
+  // Renderiza la vista del perfil
+  response.status(200).render('perfil');
+});
+
+// Logout ->
+router.get('/api/logout', (request, response) => {
+  // Destruye la sesión y redirige al login
+  request.session.destroy((err) => {
+    if (err) {
+      console.error('Error al cerrar sesión:', err);
+    }
+    response.redirect('/api/login');
+  });
 });
 module.exports = router;
 
