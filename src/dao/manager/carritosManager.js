@@ -22,7 +22,6 @@ class Carrito {
         return productosLimitados; // Devuelve el resultado explícitamente
         }
     } catch (error) {
-        console.error('Error al obtener productos:', error);
         response.status(500).json({ error: 'Error al obtener productos' });
     }
     };

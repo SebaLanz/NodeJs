@@ -24,8 +24,8 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: {
-    secure: false, // Cambia a true si estás usando HTTPS
-    sameSite: 'None', // Agrega esta línea para evitar el error SameSite
+    secure: false, 
+    sameSite: 'None',
   },
 }));
 
@@ -53,15 +53,14 @@ app.use('/', productosRoutes);
 
 // Instancia de socket y emisiones.
 io.on('connection', socket => {
-  console.log('Nuevo cliente conectado');
 
   socket.on('message', data => {
-    console.log(data);
+    // console.log(data);
   });
 
-  socket.emit('evento_individual', 'mensaje individual, el cual es una relación 1 a 1');
-  socket.broadcast.emit('mensaje_para_todos_menos_para_mi', 'Este mensaje lo ven todos menos el usuario emisor');
-  io.emit('msj_para_todos','Este msj lo reciben todos');
+  // socket.emit('evento_individual', 'mensaje individual, el cual es una relación 1 a 1');
+  // socket.broadcast.emit('mensaje_para_todos_menos_para_mi', 'Este mensaje lo ven todos menos el usuario emisor');
+  // io.emit('msj_para_todos','Este msj lo reciben todos');
 });
 
 module.exports = app;

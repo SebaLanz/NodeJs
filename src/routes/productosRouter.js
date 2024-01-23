@@ -31,7 +31,6 @@ router.get('/api/productsDb/cantidad', async (request, response) => {
     const totalProducts = await products.GetCountProductos();
     response.status(200).json({ totalProducts });
   } catch (error) {
-    console.error('Error al obtener la cantidad total de productos:', error);
     response.status(500).json({ error: 'Error al obtener la cantidad total de productos' });
   }
 });

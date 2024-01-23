@@ -29,8 +29,8 @@ const authenticateMiddleware = (request, response, next) => {
 
 //Index
 router.get('/', authenticateMiddleware, (request, response) => {
-  const userEmail = request.session.email; // Obtén el email desde la sesión
-  response.status(200).render('index', { email: userEmail }); // Renderiza la vista con el email
+  const userEmail = request.session.email;
+  response.status(200).render('index', { email: userEmail });
 });
 
 // Ruta para renderizar la vista con productos paginados
@@ -54,7 +54,6 @@ router.get('/api/productsDb',authenticateMiddleware, async (request, response) =
       pagination,
     });
   } catch (error) {
-    console.error('Error:', error);
     response.status(500).json({ error: 'Internal Server Error' });
   }
 });
@@ -88,7 +87,6 @@ router.get('/api/usersDb',authenticateMiddleware, async (request, response) => {
       pagination,
     });
   } catch (error) {
-    console.error('Error:', error);
     response.status(500).json({ error: 'Internal Server Error' });
   }
 });
@@ -117,7 +115,6 @@ router.all('/api/login', async (request, response) => {
     request.session.email = email; // Establece la sesión
     response.status(200).render('index', { success: 'Inicio de sesión exitoso', email });
   } catch (error) {
-    console.error('Error:', error);
     response.status(500).json({ success: false, message: 'Error interno del servidor' });
   }
 });
@@ -128,17 +125,29 @@ router.get('/api/registrar', async (request, response) => {
 });
 
 // Perfil ->
-router.get('/api/perfilDb', authenticateMiddleware, (request, response) => {
-  // Renderiza la vista del perfil
-  response.status(200).render('perfil');
+router.get('/api/perfilDb', authenticateMiddleware, async (request, response) => {
+  try {
+    const userEmail = request.session.email; // Obtén el email desde la sesión
+    // Aquí podrías realizar la lógica necesaria para obtener otros datos del usuario si es necesario
+    const user = await usuariosManager.getUsuarioByEmailDb(userEmail, response);
+    if (!user) {
+      return response.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+    response.status(200).render('perfil', {user});
+  } catch (error) {
+    response.status(500).json({ error: 'Error interno del servidor al obtener el usuario' });
+  }
 });
+
+
 
 // Logout ->
 router.get('/api/logout', (request, response) => {
   // Destruye la sesión y redirige al login
   request.session.destroy((err) => {
     if (err) {
-      console.error('Error al cerrar sesión:', err);
+      return('Error al cerrar sesión:', err);
     }
     response.redirect('/api/login');
   });

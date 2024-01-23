@@ -155,7 +155,6 @@ class Usuario {
             return usuariosLimitados; // Devuelve el resultado explícitamente
           }
         } catch (error) {
-          console.error('Error al obtener usuarios:', error);
           response.status(500).json({ error: 'Error al obtener usuarios' });
         }
       };
@@ -171,7 +170,6 @@ class Usuario {
     //             response.json(usuariosLimitados); // Enviar la respuesta al cliente
     //         }
     //     } catch (error) {
-    //         console.error('Error al obtener usuarios:', error);
     //         response.status(500).json({ error: 'Error al obtener usuarios' });
     //     } finally {
     //         this.conec.desconectar();
@@ -191,7 +189,6 @@ class Usuario {
         }
         return usuario;//retorno todo el usuario.
       } catch (error) {
-        console.error('Error al obtener usuario por ID:', error);
         response.status(500).json({ error: 'Error al obtener usuario por ID' });
       }
     };
@@ -216,7 +213,6 @@ class Usuario {
   
         return { success: true, message: 'Usuario creado exitosamente' };
       } catch (error) {
-        console.error('Error al crear usuario:', error);
         return { success: false, message: 'Error al crear usuario' };
       }
     }
@@ -232,7 +228,6 @@ class Usuario {
         }
         return mailDb;
       } catch (error) {
-        console.error('Error al obtener usuario por email:', error);
         response.status(500).json({ error: 'Error al obtener usuario por email' });
       }
     };
@@ -242,7 +237,6 @@ class Usuario {
       try {
         return providedPassword === storedPassword;
       } catch (error) {
-        console.error('Error al comparar contraseñas:', error);
         return false;
       }
     };

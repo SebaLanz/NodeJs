@@ -30,14 +30,14 @@
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
-                <form class="login100-form validate-form" method="POST" id="profileForm">
+                <form class="login100-form validate-form" method="put" id="profileForm">
                     <span class="login100-form-title p-b-26">
                         Perfil de Usuario
                     </span><br>
 
                     <!-- Usuario -->
                     <div class="wrap-input100 validate-input">
-                        <input id="username" class="input100" type="text" name="username" value="{{username}}" required>
+                        <input id="username" class="input100" type="text" name="username" value="{{user.username}}" required>
                         <span class="focus-input100" data-placeholder="Usuario"></span>
                     </div>
 
@@ -46,37 +46,36 @@
                         <span class="btn-show-pass">
                             <i class="zmdi zmdi-eye"></i>
                         </span>
-                        <input id="password" class="input100" type="password" name="password" value="{{password}}" required>
+                        <input id="password" class="input100" type="password" name="password"  required>
                         <span class="focus-input100" data-placeholder="Contraseña"></span>
                     </div>
 
                     <!-- Correo Electrónico -->
                     <div class="wrap-input100 validate-input" data-validate="Formato: abc@def.com">
-                        <input id="mail" class="input100" type="email" name="mail" value="{{mail}}" required>
+                        <input id="mail" class="input100" type="email" name="mail" value="{{user.mail}}" required>
                         <span class="focus-input100" data-placeholder="Correo Electrónico"></span>
                     </div>
-
                     <!-- Nombre -->
                     <div class="wrap-input100 validate-input">
-                        <input id="name" class="input100" type="text" name="name" value="{{name}}" required>
+                        <input id="name" class="input100" type="text" name="name" value="{{user.name}}" required>
                         <span class="focus-input100" data-placeholder="Nombre"></span>
                     </div>
 
                     <!-- Apellido -->
                     <div class="wrap-input100 validate-input">
-                        <input id="surname" class="input100" type="text" name="surname" value="{{surname}}" required>
+                        <input id="surname" class="input100" type="text" name="surname" value="{{user.surname}}" required>
                         <span class="focus-input100" data-placeholder="Apellido"></span>
                     </div>
 
                     <!-- Ciudad -->
                     <div class="wrap-input100 validate-input">
-                        <input id="city" class="input100" type="text" name="city" value="{{city}}" required>
+                        <input id="city" class="input100" type="text" name="city" value="{{user.city}}" required>
                         <span class="focus-input100" data-placeholder="Ciudad"></span>
                     </div>
 
                     <!-- Teléfono -->
                     <div class="wrap-input100 validate-input">
-                        <input id="telephone" class="input100" type="tel" name="telephone" value="{{telephone}}" required>
+                        <input id="telephone" class="input100" type="tel" name="telephone" value="{{user.telephone}}" required>
                         <span class="focus-input100" data-placeholder="Teléfono"></span>
                     </div>
 
@@ -121,5 +120,48 @@
     <script src="/javascript/login.js"></script>
     <script src="/javascript/logout.js"></script>
 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>//script para deshabilitar - invisible. los placeholder.
+  $(document).ready(function() {
+    $('.input100').each(function() {
+      if ($(this).val().trim() !== '') {
+        $(this).siblings('.focus-input100').hide();
+      }
+      $(this).on('input', function() {
+        $(this).siblings('.focus-input100').toggle($(this).val().trim() === '');
+      });
+    });
+  });
+</script>
+
+<script>
+    $(document).ready(function() {
+  // ID del usuario que deseas actualizar
+  const userId = {user.id_usuario}; // Reemplaza esto con tu lógica para obtener el ID del usuario
+
+  // Datos que deseas actualizar
+  const updatedUserData = {
+    name: 'nuevoUsername',
+    // Otros campos que deseas actualizar
+  };
+
+  // Realiza la solicitud de actualización
+  $.ajax({
+    url: `/api/updateUser/${userId}`,
+    type: 'PUT',
+    contentType: 'application/json',
+    data: JSON.stringify(updatedUserData),
+    success: function(response) {
+      console.log('Usuario actualizado exitosamente:', response);
+      // Puedes manejar la respuesta según tus necesidades
+    },
+    error: function(error) {
+      console.error('Error al actualizar el usuario:', error);
+      // Puedes manejar el error según tus necesidades
+    }
+  });
+});
+</script>
 </body>
 </html>

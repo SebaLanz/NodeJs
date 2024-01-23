@@ -34,6 +34,7 @@ router.get('/api/usersDb/:id', async (request, response) => {
   }
 });
 
+//Get by Email
 router.get('/api/emailExiste/:email', async (request, response) => {
   try {
     const email = await users.getUsuarioByEmailDb(request.params.email, response);
@@ -57,11 +58,11 @@ router.post('/api/registrar/', async (request, response) => {
 
     response.status(result.success ? 201 : 400).json(result);
   } catch (error) {
-    console.error('Error:', error);
     response.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 });
 
+//update by id
 router.put('/api/updateUser/:id', async (request, response) => {
   const userId = request.params.id;
   const updatedUserData = request.body;
@@ -77,7 +78,6 @@ router.put('/api/updateUser/:id', async (request, response) => {
     // Llama a updateUserByIdDb sin enviar la respuesta aquí
     await users.updateUserByIdDb(userId, updatedUserData, response);
   } catch (error) {
-    console.error('Error al actualizar usuario:', error);
     response.status(500).json({ success: false, message: `Error interno del servidor al actualizar usuario, ${userId}` });
   }
 });
