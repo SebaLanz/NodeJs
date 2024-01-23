@@ -23,11 +23,6 @@ const authenticateMiddleware = (request, response, next) => {
   if (request.session && request.session.email) {
     next();
   } else {
-    // Si es una solicitud AJAX (como la que realiza fetch), responde con un código 401
-    if (request.xhr) {
-      return response.status(401).json({ error: 'Unauthorized' });
-    }
-    // Si es una solicitud normal, redirige a la página de login
     response.status(401).render('login', { isLoginPage: true });
   }
 };
@@ -148,5 +143,6 @@ router.get('/api/logout', (request, response) => {
     response.redirect('/api/login');
   });
 });
+
 module.exports = router;
 

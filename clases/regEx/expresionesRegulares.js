@@ -11,7 +11,7 @@ class RegEx {
 
   async encryptPassword(password) {
     if (!this.validatePassword(password)) {
-      throw new Error('La clave no cumple con los requisitos.');
+      throw new Error('La clave no cumple con los requisitos. ');
     }
 
     // Generar un hash de la contraseña utilizando bcrypt

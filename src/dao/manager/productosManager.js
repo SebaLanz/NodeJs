@@ -272,8 +272,6 @@ class Producto {
     } catch (error) {
       console.error('Error al actualizar producto por ID:', error);
       response.status(500).json({ error: 'Error al actualizar producto por ID' });
-    } finally {
-      this.conec.desconectar();
     }
   };
 

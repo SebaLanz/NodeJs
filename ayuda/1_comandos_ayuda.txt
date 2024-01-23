@@ -57,6 +57,7 @@ npm install express express-handlebars
 
 14)npm install handlebars-helpers para intentar utilizar pagination.
 
+15) npm install express-session
 
 Recuroso callbacks github: 
 http://localhost:8080/api/sessions/callbacksGitHub
