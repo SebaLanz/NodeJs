@@ -6,7 +6,7 @@ const { validatorByAll, validatorById, validatorStatusActive, validatorStatusIna
 const RegEx = require(utils.getAbsolutePath('clases/regEx/expresionesRegulares.js'));
 const encriptador = new RegEx();
 const { Conexion } = require('../conexion/conexion.js'); 
-
+const bcrypt = require('bcrypt');
 class Usuario { 
     constructor() {
         this.conec = new Conexion();
@@ -196,26 +196,28 @@ class Usuario {
     createUser = async (usuario, mail, password) => {
       try {
         await this.conec.conectar();
-  
+    
         const usuariosCollection = this.conec.db.collection('users');
-  
+    
         // Verifica si el usuario ya existe
         const existingUser = await usuariosCollection.findOne({ usuario });
-  
+    
         if (existingUser) {
           return { success: false, message: 'El usuario ya existe' };
         }
-  
+    
         // Si el usuario no existe, crea un nuevo usuario
-        const newUser = { usuario, mail, password };
-  
+        const hashedPassword = await encriptador.encryptPassword(password); // Encripta la contraseña
+        const newUser = { usuario, mail, password: hashedPassword };
+    
         await usuariosCollection.insertOne(newUser);
-  
+    
         return { success: true, message: 'Usuario creado exitosamente' };
       } catch (error) {
         return { success: false, message: 'Error al crear usuario' };
       }
     }
+    
 
     getUsuarioByEmailDb = async (mail, response) => {
       try {
@@ -224,22 +226,26 @@ class Usuario {
         const usuariosCollection = this.conec.db.collection('users');
         const mailDb = await usuariosCollection.findOne({ mail: mail });
         if (!mailDb) {
-          return ('No se encontró el correo en la base de datos2');
+          return response.status(404).json({ error: 'No se encontró el correo en la base de datos' });
         }
         return mailDb;
       } catch (error) {
-        response.status(500).json({ error: 'Error al obtener usuario por email' });
+        console.error('Error al obtener usuario por email:', error);
+        response.status(500).json({ error: 'Error interno del servidor al obtener usuario por email' });
       }
     };
     
-    // Añade un nuevo método para verificar la contraseña
+    
     comparePassword = async (providedPassword, storedPassword) => {
       try {
-        return providedPassword === storedPassword;
+        const match = await bcrypt.compare(providedPassword, storedPassword);
+        return match;
       } catch (error) {
+        console.error('Error al comparar contraseñas:', error);
         return false;
       }
     };
+    
 
     // ...
     updateUserByIdDb = async (userId, updatedUserData, response) => {

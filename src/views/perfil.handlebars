@@ -79,12 +79,11 @@
                         <span class="focus-input100" data-placeholder="Teléfono"></span>
                     </div>
 
-                    <!-- Botón Guardar -->
                     <div class="container-login100-form-btn">
                         <div class="wrap-login100-form-btn">
                             <div class="login100-form-bgbtn"></div>
-                            <button class="login100-form-btn" type="submit">
-                                Guardar
+                            <button id="actualizarBtn" class="login100-form-btn" type="button">
+                                Actualizar
                             </button>
                         </div>
                     </div>
@@ -119,7 +118,7 @@
     <!--===============================================================================================--> 
     <script src="/javascript/login.js"></script>
     <script src="/javascript/logout.js"></script>
-
+    <script src="/javascript/updatePerfil.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>//script para deshabilitar - invisible. los placeholder.
@@ -135,33 +134,6 @@
   });
 </script>
 
-<script>
-    $(document).ready(function() {
-  // ID del usuario que deseas actualizar
-  const userId = {user.id_usuario}; // Reemplaza esto con tu lógica para obtener el ID del usuario
 
-  // Datos que deseas actualizar
-  const updatedUserData = {
-    name: 'nuevoUsername',
-    // Otros campos que deseas actualizar
-  };
-
-  // Realiza la solicitud de actualización
-  $.ajax({
-    url: `/api/updateUser/${userId}`,
-    type: 'PUT',
-    contentType: 'application/json',
-    data: JSON.stringify(updatedUserData),
-    success: function(response) {
-      console.log('Usuario actualizado exitosamente:', response);
-      // Puedes manejar la respuesta según tus necesidades
-    },
-    error: function(error) {
-      console.error('Error al actualizar el usuario:', error);
-      // Puedes manejar el error según tus necesidades
-    }
-  });
-});
-</script>
 </body>
 </html>
