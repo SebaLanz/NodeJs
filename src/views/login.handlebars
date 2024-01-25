@@ -51,10 +51,10 @@
                         <span class="focus-input100" data-placeholder="Password"></span>
                     </div>
 
-                    <div class="container-login100-form-btn">
+                   <div class="container-login100-form-btn">
                         <div class="wrap-login100-form-btn">
                             <div class="login100-form-bgbtn"></div>
-                            <button class="login100-form-btn">
+                            <button type="button" class="login100-form-btn" id="loginButton">
                                 Ingresar
                             </button>
                         </div>
@@ -95,13 +95,25 @@
     </div>
 
     <div id="dropDownSelect1"></div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('loginForm').addEventListener('submit', async (event) => {
-        event.preventDefault();
+    document.getElementById('loginButton').addEventListener('click', async () => {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
+
+        // Verifica que los campos no estén vacíos
+        if (!email || !password) {
+            // Muestra una alerta indicando que los campos son obligatorios
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Ambos campos son obligatorios. Por favor, complete todos los campos.',
+                width: '400px'
+            });
+            return;
+        }
 
         try {
             const response = await fetch('/api/login', {
@@ -110,7 +122,7 @@
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ email, password }),
-				credentials: 'include', // Incluye las cookies en la solicitud
+                credentials: 'include', // Incluye las cookies en la solicitud
             });
 
             if (response.status === 200) {
@@ -126,6 +138,7 @@
         }
     });
 });
+
 
     </script>
 

@@ -91,7 +91,7 @@ router.get('/api/usersDb',authenticateMiddleware, async (request, response) => {
   }
 });
 
-// Login ->
+// login
 router.all('/api/login', async (request, response) => {
   if (request.method === 'GET') {
     return response.status(200).render('login', { isLoginPage: true });
@@ -102,8 +102,8 @@ router.all('/api/login', async (request, response) => {
     const { email, password } = request.body;
     const user = await usuariosManager.getUsuarioByEmailDb(email, response);
 
-    if (!user) {
-      return response.status(401).json({ error: 'Email' });
+    if (!user || !user.password) {
+      return response.status(401).json({ error: 'Email o contraseña incorrectos' });
     }
 
     const passwordMatch = await usuariosManager.comparePassword(password, user.password);
@@ -113,11 +113,13 @@ router.all('/api/login', async (request, response) => {
 
     // El inicio de sesión fue exitoso
     request.session.email = email; // Establece la sesión
-    response.status(200).render('index', { success: 'Inicio de sesión exitoso', email });
+    return response.status(200).render('index', { success: 'Inicio de sesión exitoso', email });
   } catch (error) {
-    response.status(500).json({ success: false, message: 'Error interno del servidor' });
+    console.error('Error:', error);
+    return response.status(500).json({ success: false, message: 'Error interno del servidor' });
   }
 });
+
 
 // Registrar ->
 router.get('/api/registrar', async (request, response) => {

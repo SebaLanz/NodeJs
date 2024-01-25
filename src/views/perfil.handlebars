@@ -32,7 +32,7 @@
             <div class="wrap-login100">
                 <form class="login100-form validate-form" method="put" id="profileForm">
                     <span class="login100-form-title p-b-26">
-                        Perfil de Usuario
+                        Perfil de <span style="color: rgb(48, 168, 48);">{{user.username}}</span>
                     </span><br>
 
                     <!-- Usuario -->
@@ -82,11 +82,12 @@
                     <div class="container-login100-form-btn">
                         <div class="wrap-login100-form-btn">
                             <div class="login100-form-bgbtn"></div>
-                            <button id="actualizarBtn" class="login100-form-btn" type="button">
+                            <button id="actualizarBtn" class="login100-form-btn" type="button" data-id="{{user.id_usuario}}">
                                 Actualizar
                             </button>
                         </div>
                     </div>
+
 
                     <!-- Botón Desconectar -->
                     <div class="container-login100-form-btn">

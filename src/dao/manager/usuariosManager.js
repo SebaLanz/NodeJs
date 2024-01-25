@@ -201,9 +201,12 @@ class Usuario {
     
         // Verifica si el usuario ya existe
         const existingUser = await usuariosCollection.findOne({ usuario });
-    
+        const existingMail= await usuariosCollection.findOne({ mail });
         if (existingUser) {
-          return { success: false, message: 'El usuario ya existe' };
+          return { success: false, message: 'El usuario ya está siendo utilizado' };
+        }
+        if (existingMail) {
+          return { success: false, message: 'El mail ya está siendo utilizado' };
         }
     
         // Si el usuario no existe, crea un nuevo usuario
@@ -214,7 +217,8 @@ class Usuario {
     
         return { success: true, message: 'Usuario creado exitosamente' };
       } catch (error) {
-        return { success: false, message: 'Error al crear usuario' };
+        return { success: false, message: `La contraseña ingresada (${password}) no cumple los requisitos. Debe tener al menos una letra minúscula, una letra mayúscula, un número y un carácter especial, y tener una longitud mínima de 8 caracteres.` };
+
       }
     }
     
@@ -276,7 +280,7 @@ class Usuario {
               existingUser[key] = hashedPassword;
             } else {
               // Retorna un mensaje de error con la contraseña proporcionada por el usuario
-              return response.status(400).json({ error: `La contraseña ingresada (${updatedUserData[key]}) no cumple los requisitos. tener al menos una letra minúscula, una letra mayúscula, un número y un carácter especial, y tener una longitud mínima de 8 caracteres.` });
+              return response.status(400).json({ error: `La contraseña ingresada (${updatedUserData[key]}) no cumple los requisitos. Debe tener al menos una letra minúscula, una letra mayúscula, un número y un carácter especial, y tener una longitud mínima de 8 caracteres.` });
             }
           } else {
             existingUser[key] = updatedUserData[key];
