@@ -71,7 +71,6 @@ router.get('/api/usersDb',authenticateMiddleware, async (request, response) => {
 
     const [allUsers, totalItems] = await Promise.all([
       usuariosManager.getUsuariosAllDb(request, response),
-      //usuariosManager.getCountUsuarios() // Asegúrate de tener un método similar para obtener el total de usuarios
       10
     ]);
 
@@ -91,34 +90,63 @@ router.get('/api/usersDb',authenticateMiddleware, async (request, response) => {
   }
 });
 
-// login
 router.all('/api/login', async (request, response) => {
   if (request.method === 'GET') {
     return response.status(200).render('login', { isLoginPage: true });
   }
 
-  // Si es una solicitud POST, ejecuta la lógica de inicio de sesión
   try {
     const { email, password } = request.body;
     const user = await usuariosManager.getUsuarioByEmailDb(email, response);
 
-    if (!user || !user.password) {
-      return response.status(401).json({ error: 'Email o contraseña incorrectos' });
+    if (user === null) {
+      return response.status(401).json({ error: 'Email inexistente.' });
     }
 
     const passwordMatch = await usuariosManager.comparePassword(password, user.password);
     if (!passwordMatch) {
-      return response.status(401).json({ error: 'Email o contraseña incorrectos' });
+      return response.status(401).json({ error: 'Contraseña incorrecta' });
     }
 
     // El inicio de sesión fue exitoso
     request.session.email = email; // Establece la sesión
-    return response.status(200).render('index', { success: 'Inicio de sesión exitoso', email });
+    return response.status(200).json({ success: 'Inicio de sesión exitoso', email });
   } catch (error) {
-    console.error('Error:', error);
-    return response.status(500).json({ success: false, message: 'Error interno del servidor' });
+    return response.status(500).json({ error: 'Error interno del servidor' });
   }
 });
+
+
+// router.all('/api/login', async (request, response) => {
+//   if (request.method === 'GET') {
+//     return response.status(200).render('login', { isLoginPage: true });
+//   }
+
+//   // Si es una solicitud POST, ejecuta la lógica de inicio de sesión
+//   try {
+//     const { email, password } = request.body;
+//     const user = await usuariosManager.getUsuarioByEmailDb(email, response);
+
+//     if (!user || !user.password) {
+//       // Email o contraseña incorrectos
+//       return response.status(401).json({ error: 'Email o contraseña incorrectos' });
+//     }
+
+//     const passwordMatch = await usuariosManager.comparePassword(password, user.password);
+//     if (!passwordMatch) {
+//       // Email o contraseña incorrectos
+//       return response.status(401).json({ error: 'Email o contraseña incorrectos' });
+//     }
+
+//     // El inicio de sesión fue exitoso
+//     request.session.email = email; // Establece la sesión
+//     return response.status(200).render('index', { success: 'Inicio de sesión exitoso', email });
+//   } catch (error) {
+//     // Error interno del servidor
+//     return response.status(500).json({ success: false, message: 'Error interno del servidor' });
+//   }
+// });
+
 
 
 // Registrar ->
@@ -141,6 +169,32 @@ router.get('/api/perfilDb', authenticateMiddleware, async (request, response) =>
     response.status(500).json({ error: 'Error interno del servidor al obtener el usuario' });
   }
 });
+
+
+router.put('/api/updateUser/:userId', authenticateMiddleware, async (request, response) => {
+  try {
+      const userId = request.params.userId;
+      const updatedUserData = {
+          username: request.body.username,
+          password: request.body.password,
+          mail: request.body.mail,
+          name: request.body.name,
+          surname: request.body.surname,
+          city: request.body.city,
+          telephone: request.body.telephone,
+      };
+
+      // Llama a la función de actualización de usuario
+      await usuariosManager.updateUserByIdDb(userId, updatedUserData, response);
+
+      // Respuesta exitosa
+      response.status(200).json({ success: true, message: 'Usuario actualizado exitosamente' });
+  } catch (error) {
+      // Maneja el error según tus necesidades
+      response.status(500).json({ success: false, message: 'Error interno del servidor al actualizar usuario' });
+  }
+});
+
 
 
 

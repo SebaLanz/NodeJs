@@ -223,21 +223,17 @@ class Usuario {
     }
     
 
-    getUsuarioByEmailDb = async (mail, response) => {
+    getUsuarioByEmailDb = async (mail) => {
       try {
-        mail = mail;
         await this.conec.conectar();
         const usuariosCollection = this.conec.db.collection('users');
         const mailDb = await usuariosCollection.findOne({ mail: mail });
-        if (!mailDb) {
-          return response.status(404).json({ error: 'No se encontró el correo en la base de datos' });
-        }
-        return mailDb;
+        return mailDb; // Si no se encuentra, mailDb será null
       } catch (error) {
-        console.error('Error al obtener usuario por email:', error);
-        response.status(500).json({ error: 'Error interno del servidor al obtener usuario por email' });
+        throw error; // Lanza el error para que sea manejado en la ruta /api/login
       }
     };
+   
     
     
     comparePassword = async (providedPassword, storedPassword) => {
@@ -245,58 +241,121 @@ class Usuario {
         const match = await bcrypt.compare(providedPassword, storedPassword);
         return match;
       } catch (error) {
-        console.error('Error al comparar contraseñas:', error);
         return false;
       }
     };
     
 
     // ...
+    // updateUserByIdDb = async (userId, updatedUserData, response) => {
+    //   try {
+    //     await this.conec.conectar();
+    //     const usuariosCollection = this.conec.db.collection('users');
+    
+    //     // Asegúrate de que userId sea del mismo tipo que el campo id_usuario en MongoDB
+    //     const usuarioId = +userId; // Puedes ajustar la conversión según el tipo de datos en MongoDB
+    
+    //     // Verifica si el usuario existe
+    //     const existingUser = await usuariosCollection.findOne({ id_usuario: usuarioId });
+    
+    //     if (!existingUser) {
+    //       validatorById(existingUser, usuarioId, response);
+    //       return;
+    //     }
+    
+    //     // Realiza la actualización del usuario
+    //     for (const key in updatedUserData) {
+    //       if (key === 'id_usuario' || key === 'status') {
+    //         return response.status(400).json({ error: `No se puede modificar el campo ${key}` });
+    //       } else if (key === 'password') {
+    //         // Maneja la actualización de la contraseña según tus requisitos
+    //         const isValidPassword = encriptador.validatePassword(updatedUserData[key]);
+    //         if (isValidPassword) {
+    //           const hashedPassword = await encriptador.encryptPassword(updatedUserData[key]);
+    //           existingUser[key] = hashedPassword;
+    //         } else {
+    //           // Retorna un mensaje de error con la contraseña proporcionada por el usuario
+    //           return response.status(400).json({ error: `La contraseña ingresada (${updatedUserData[key]}) no cumple los requisitos. Debe tener al menos una letra minúscula, una letra mayúscula, un número y un carácter especial, y tener una longitud mínima de 8 caracteres.` });
+    //         }
+    //       } else {
+    //         existingUser[key] = updatedUserData[key];
+    //       }
+    //     }
+    
+    //     // Aplica la actualización en la base de datos
+    //     await usuariosCollection.updateOne({ id_usuario: usuarioId }, { $set: existingUser });
+    
+    //     response.status(200).json({ success: true, message: 'Usuario actualizado exitosamente' });
+    //   } catch (error) {
+    //     response.status(500).json({ success: false, message: 'Error interno del servidor al actualizar usuario' });
+    //   }
+    // };
+    
     updateUserByIdDb = async (userId, updatedUserData, response) => {
-      try {
-        await this.conec.conectar();
-        const usuariosCollection = this.conec.db.collection('users');
-    
-        // Asegúrate de que userId sea del mismo tipo que el campo id_usuario en MongoDB
-        const usuarioId = +userId; // Puedes ajustar la conversión según el tipo de datos en MongoDB
-    
-        // Verifica si el usuario existe
-        const existingUser = await usuariosCollection.findOne({ id_usuario: usuarioId });
-    
-        if (!existingUser) {
-          validatorById(existingUser, usuarioId, response);
-          return;
-        }
-    
-        // Realiza la actualización del usuario
-        for (const key in updatedUserData) {
-          if (key === 'id_usuario' || key === 'status') {
-            return response.status(400).json({ error: `No se puede modificar el campo ${key}` });
-          } else if (key === 'password') {
-            // Maneja la actualización de la contraseña según tus requisitos
-            const isValidPassword = encriptador.validatePassword(updatedUserData[key]);
-            if (isValidPassword) {
-              const hashedPassword = await encriptador.encryptPassword(updatedUserData[key]);
-              existingUser[key] = hashedPassword;
-            } else {
-              // Retorna un mensaje de error con la contraseña proporcionada por el usuario
-              return response.status(400).json({ error: `La contraseña ingresada (${updatedUserData[key]}) no cumple los requisitos. Debe tener al menos una letra minúscula, una letra mayúscula, un número y un carácter especial, y tener una longitud mínima de 8 caracteres.` });
-            }
-          } else {
-            existingUser[key] = updatedUserData[key];
-          }
-        }
-    
-        // Aplica la actualización en la base de datos
-        await usuariosCollection.updateOne({ id_usuario: usuarioId }, { $set: existingUser });
-    
-        response.status(200).json({ success: true, message: 'Usuario actualizado exitosamente' });
-      } catch (error) {
-        response.status(500).json({ success: false, message: 'Error interno del servidor al actualizar usuario' });
+  try {
+    await this.conec.conectar();
+    const usuariosCollection = this.conec.db.collection('users');
+
+    // Asegúrate de que userId sea del mismo tipo que el campo id_usuario en MongoDB
+    const usuarioId = +userId; // Puedes ajustar la conversión según el tipo de datos en MongoDB
+
+    // Verifica si el usuario existe
+    const existingUser = await usuariosCollection.findOne({ id_usuario: usuarioId });
+
+    if (!existingUser) {
+      validatorById(existingUser, usuarioId, response);
+      return;
+    }
+
+    // Validar campos obligatorios
+    if (!updatedUserData.username || !updatedUserData.password || !updatedUserData.mail) {
+      return response.status(400).json({ error: 'Los campos de nombre de usuario, contraseña y correo electrónico son obligatorios' });
+    }
+
+    // Validar correo electrónico
+    if (existingUser.mail !== updatedUserData.mail) {
+      const existingEmailUser = await usuariosManager.getUsuarioByEmailDb(updatedUserData.mail, response);
+      if (existingEmailUser) {
+        return response.status(400).json({ error: 'El correo electrónico ya está en uso' });
       }
-    };
-    
-    
+    }
+
+    // Validar nombre de usuario
+    if (existingUser.username !== updatedUserData.username) {
+      const existingUsernameUser = await usuariosManager.getUsuarioByUsernameDb(updatedUserData.username, response);
+      if (existingUsernameUser) {
+        return response.status(400).json({ error: 'El nombre de usuario ya está en uso' });
+      }
+    }
+
+    // Realiza la actualización del usuario
+    for (const key in updatedUserData) {
+      if (key === 'id_usuario' || key === 'status') {
+        return response.status(400).json({ error: `No se puede modificar el campo ${key}` });
+      } else if (key === 'password') {
+        // Maneja la actualización de la contraseña según tus requisitos
+        const isValidPassword = encriptador.validatePassword(updatedUserData[key]);
+        if (isValidPassword) {
+          const hashedPassword = await encriptador.encryptPassword(updatedUserData[key]);
+          existingUser[key] = hashedPassword;
+        } else {
+          // Retorna un mensaje de error con la contraseña proporcionada por el usuario
+          return response.status(400).json({ error: `La contraseña ingresada no cumple los requisitos.` });
+        }
+      } else {
+        existingUser[key] = updatedUserData[key];
+      }
+    }
+
+    // Aplica la actualización en la base de datos
+    await usuariosCollection.updateOne({ id_usuario: usuarioId }, { $set: existingUser });
+
+    response.status(200).json({ success: true, message: 'Usuario actualizado exitosamente' });
+  } catch (error) {
+    response.status(500).json({ success: false, message: 'Error interno del servidor al actualizar usuario' });
+  }
+};
+
 
 // ...
 

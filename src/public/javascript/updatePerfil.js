@@ -1,38 +1,7 @@
-// $(document).ready(function() {
-//   const userId = user.id_usuario;
-
-//   // Datos a actualizar
-//   const updatedUserData = {
-//     name: user.name,
-//     surname: user.surname,
-//     city: user.city,
-//     telephone: user.telephone,
-//     mail: user.mail,
-//     password: user.password
-//   };
-//     console.log(updatedUserData);
-//   // Realiza la solicitud de actualización
-//   $.ajax({
-//     url: `/api/updateUser/${userId}`,
-//     type: 'PUT',
-//     contentType: 'application/json',
-//     data: JSON.stringify(updatedUserData),
-//     success: function(response) {
-//       console.log('Usuario actualizado exitosamente:', response);
-//       // Puedes manejar la respuesta según tus necesidades
-//     },
-//     error: function(error) {
-//       console.error('Error al actualizar el usuario:', error);
-//       // Puedes manejar el error según tus necesidades
-//     }
-//   });
-// });
-
-$(document).ready(function() {
-    // Agrega un evento de clic al botón de actualizar
-    $('#actualizarBtn').on('click', function() {
-        const userId = $(this).data('id');
-
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('actualizarBtn').addEventListener('click', async () => {
+        const userId = document.getElementById('actualizarBtn').getAttribute('data-id');
+        console.log(1);
         // Datos a actualizar
         const updatedUserData = {
             username: $("#username").val().trim(),
@@ -44,14 +13,13 @@ $(document).ready(function() {
             telephone: $("#telephone").val().trim()
         };
 
-        // Realiza la solicitud de actualización
+        // Realiza la actualización del perfil sin validaciones
         $.ajax({
-            url: `/api/updateUser/${userId}`,
+            url: `/api/updateUser/${1}`,
             type: 'PUT',
             contentType: 'application/json',
             data: JSON.stringify(updatedUserData),
-            success: function(response) {
-                // Utiliza SweetAlert2 en lugar de console.log
+            success: function (response) {
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -60,10 +28,8 @@ $(document).ready(function() {
                     timer: 2000,
                     width: '400px'
                 });
-                // Puedes manejar la respuesta según tus necesidades
             },
-            error: function(error) {
-                // Utiliza SweetAlert2 en lugar de console.error
+            error: function (error) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
@@ -75,3 +41,6 @@ $(document).ready(function() {
         });
     });
 });
+
+  
+  
