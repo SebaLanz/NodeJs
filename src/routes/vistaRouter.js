@@ -171,29 +171,6 @@ router.get('/api/perfilDb', authenticateMiddleware, async (request, response) =>
 });
 
 
-router.put('/api/updateUser/:userId', authenticateMiddleware, async (request, response) => {
-  try {
-      const userId = request.params.userId;
-      const updatedUserData = {
-          username: request.body.username,
-          password: request.body.password,
-          mail: request.body.mail,
-          name: request.body.name,
-          surname: request.body.surname,
-          city: request.body.city,
-          telephone: request.body.telephone,
-      };
-
-      // Llama a la función de actualización de usuario
-      await usuariosManager.updateUserByIdDb(userId, updatedUserData, response);
-
-      // Respuesta exitosa
-      response.status(200).json({ success: true, message: 'Usuario actualizado exitosamente' });
-  } catch (error) {
-      // Maneja el error según tus necesidades
-      response.status(500).json({ success: false, message: 'Error interno del servidor al actualizar usuario' });
-  }
-});
 
 
 
