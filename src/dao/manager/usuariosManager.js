@@ -292,7 +292,30 @@ class Usuario {
     };
     
     
-
+    usuarioExisteDb = async (username) => {
+      try {
+        await this.conec.conectar();
+        const usuariosCollection = this.conec.db.collection('users');
+    
+        const existingUser = await usuariosCollection.findOne({ username: { $regex: new RegExp(`^${username}$`, 'i') } });
+    
+        return !!existingUser; // Devuelve true si existe, false si no existe
+      } catch (error) {
+        throw error;
+      }
+    };
+    
+  
+    mailExisteDb = async (mail) => {
+      try {
+        await this.conec.conectar();
+        const usuariosCollection = this.conec.db.collection('users');
+        const existingMail = await usuariosCollection.findOne({ mail });
+        return !!existingMail; // Devuelve true si existe, false si no existe
+      } catch (error) {
+        throw error;
+      }
+    };
 
 // ...
 

@@ -62,11 +62,30 @@ router.post('/api/registrar/', async (request, response) => {
   }
 });
 
-//update by id
+// // //update by id funciona sin validaciones
+// router.put('/api/updateUser/:id', async (request, response) => {
+//   const userId = request.params.id;
+//   const updatedUserData = request.body;
+  
+//   try {
+//     // Verifica si el usuario existe
+//     const existingUser = await users.getUsuarioByIdDb(userId, response);
+
+//     if (!existingUser) {
+//       return response.status(404).json({ error: `Usuario no encontrado, ${existingUser}` });
+//     }
+
+//     // Llama a updateUserByIdDb sin enviar la respuesta aquí
+//     await users.updateUserByIdDb(userId, updatedUserData, response);
+//   } catch (error) {
+//     response.status(500).json({ success: false, message: `Error interno del servidor al actualizar usuario, ${userId}` });
+//   }
+// });
+
 router.put('/api/updateUser/:id', async (request, response) => {
   const userId = request.params.id;
   const updatedUserData = request.body;
-  
+
   try {
     // Verifica si el usuario existe
     const existingUser = await users.getUsuarioByIdDb(userId, response);
@@ -75,14 +94,26 @@ router.put('/api/updateUser/:id', async (request, response) => {
       return response.status(404).json({ error: `Usuario no encontrado, ${existingUser}` });
     }
 
+    // Validar si el nuevo username ya existe en la base de datos
+    const usernameExists = await users.usuarioExisteDb(updatedUserData.username);
+
+    if (usernameExists && updatedUserData.username !== existingUser.username) {
+      return response.status(400).json('El nuevo username ya está siendo utilizado' );
+    }
+
+    // Validar si el nuevo mail ya existe en la base de datos
+    const mailExists = await users.mailExisteDb(updatedUserData.mail);
+
+    if (mailExists && updatedUserData.mail !== existingUser.mail) {
+      return response.status(400).json('El nuevo mail ya está siendo utilizado' );
+    }
+
     // Llama a updateUserByIdDb sin enviar la respuesta aquí
     await users.updateUserByIdDb(userId, updatedUserData, response);
   } catch (error) {
     response.status(500).json({ success: false, message: `Error interno del servidor al actualizar usuario, ${userId}` });
   }
 });
-
-
 
 
 
