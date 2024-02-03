@@ -64,6 +64,11 @@ http://localhost:8080/api/sessions/callbacksGitHub
 
 App ID: 803746
 
-Client ID: Iv1.05482e969b941dd1
 
-f8d07a3418edd746b8f7dfd2af070f80e756c23f
+coderPassportGit0hub /// --->
+
+Client ID: 794bb9ec6c53a9e262ab
+
+f1945ecdb29990c44ab590f4293c8034f0aec796
+
+http://localhost:8080/auth/github/callback

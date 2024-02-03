@@ -19,6 +19,9 @@ const app = express();
 const httpServer = app.listen(port, () => console.log(`Servidor Express escuchando en el puerto ${port}`));
 const io = socketIO(httpServer); // Instancio cliente con socket io. //SocketSever  
 
+
+
+// session común
 app.use(session({
   secret: 'CoderNodeJS',
   resave: false,

@@ -230,7 +230,7 @@ class Usuario {
         const mailDb = await usuariosCollection.findOne({ mail: mail });
         return mailDb; // Si no se encuentra, mailDb será null
       } catch (error) {
-        throw error; // Lanza el error para que sea manejado en la ruta /api/login
+        throw error; 
       }
     };
    

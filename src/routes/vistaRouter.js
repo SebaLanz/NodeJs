@@ -7,6 +7,10 @@
   const usuariosManager = new Usuario();
   const bcrypt = require('bcrypt');
 
+  // github passport
+  const passport = require('passport');
+  const GitHubStrategy = require('passport-github').Strategy;
+
 
 // Middleware para verificar la autenticación del usuario
 const authenticateMiddleware = (request, response, next) => {
@@ -14,7 +18,7 @@ const authenticateMiddleware = (request, response, next) => {
   const publicRoutes = ['/api/login', '/api/registrar'];
 
   // Verifica si la ruta actual es pública
-  if (publicRoutes.includes(request.path)) {
+  if (request.session && (request.session.email || request.session.passport)) {
     // Ruta pública, permitir acceso
     return next();
   }
@@ -26,6 +30,48 @@ const authenticateMiddleware = (request, response, next) => {
     response.status(401).render('login', { isLoginPage: true });
   }
 };
+
+// Passport GITHUB
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+passport.deserializeUser((id, done) => {
+  Usuario.findById(id, (err, user) => {
+    done(err, user);
+  });
+});
+
+//login github
+passport.use(new GitHubStrategy({
+  clientID: '794bb9ec6c53a9e262ab',
+  clientSecret: 'f1945ecdb29990c44ab590f4293c8034f0aec796',
+  callbackURL: 'http://localhost:8080/auth/github/callback',
+},
+(accessToken, refreshToken, profile, done) => {
+  // Customize this callback function to handle GitHub user data as needed
+  return done(null, profile);
+}, (err) => {
+  console.error('GitHub authentication error:', err);
+}));
+// login github
+
+router.get('/auth/github', passport.authenticate('github'));
+router.get('/auth/github/callback',
+  passport.authenticate('github', { failureRedirect: '/' }),
+  (req, res) => {
+    console.log('GitHub authentication successful');
+    res.redirect('/');
+  });
+
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/');
+}
+router.get('/protected-route', ensureAuthenticated, (req, res) => {});
+
 
 //Index
 router.get('/', authenticateMiddleware, (request, response) => {
@@ -90,6 +136,7 @@ router.get('/api/usersDb',authenticateMiddleware, async (request, response) => {
   }
 });
 
+//login
 router.all('/api/login', async (request, response) => {
   if (request.method === 'GET') {
     return response.status(200).render('login', { isLoginPage: true });
@@ -117,36 +164,6 @@ router.all('/api/login', async (request, response) => {
 });
 
 
-// router.all('/api/login', async (request, response) => {
-//   if (request.method === 'GET') {
-//     return response.status(200).render('login', { isLoginPage: true });
-//   }
-
-//   // Si es una solicitud POST, ejecuta la lógica de inicio de sesión
-//   try {
-//     const { email, password } = request.body;
-//     const user = await usuariosManager.getUsuarioByEmailDb(email, response);
-
-//     if (!user || !user.password) {
-//       // Email o contraseña incorrectos
-//       return response.status(401).json({ error: 'Email o contraseña incorrectos' });
-//     }
-
-//     const passwordMatch = await usuariosManager.comparePassword(password, user.password);
-//     if (!passwordMatch) {
-//       // Email o contraseña incorrectos
-//       return response.status(401).json({ error: 'Email o contraseña incorrectos' });
-//     }
-
-//     // El inicio de sesión fue exitoso
-//     request.session.email = email; // Establece la sesión
-//     return response.status(200).render('index', { success: 'Inicio de sesión exitoso', email });
-//   } catch (error) {
-//     // Error interno del servidor
-//     return response.status(500).json({ success: false, message: 'Error interno del servidor' });
-//   }
-// });
-
 
 
 // Registrar ->
@@ -169,11 +186,6 @@ router.get('/api/perfilDb', authenticateMiddleware, async (request, response) =>
     response.status(500).json({ error: 'Error interno del servidor al obtener el usuario' });
   }
 });
-
-
-
-
-
 
 // Logout ->
 router.get('/api/logout', (request, response) => {

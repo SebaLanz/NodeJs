@@ -62,25 +62,7 @@ router.post('/api/registrar/', async (request, response) => {
   }
 });
 
-// // //update by id funciona sin validaciones
-// router.put('/api/updateUser/:id', async (request, response) => {
-//   const userId = request.params.id;
-//   const updatedUserData = request.body;
-  
-//   try {
-//     // Verifica si el usuario existe
-//     const existingUser = await users.getUsuarioByIdDb(userId, response);
 
-//     if (!existingUser) {
-//       return response.status(404).json({ error: `Usuario no encontrado, ${existingUser}` });
-//     }
-
-//     // Llama a updateUserByIdDb sin enviar la respuesta aquí
-//     await users.updateUserByIdDb(userId, updatedUserData, response);
-//   } catch (error) {
-//     response.status(500).json({ success: false, message: `Error interno del servidor al actualizar usuario, ${userId}` });
-//   }
-// });
 
 router.put('/api/updateUser/:id', async (request, response) => {
   const userId = request.params.id;
